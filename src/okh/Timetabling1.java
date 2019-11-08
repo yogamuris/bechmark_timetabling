@@ -28,11 +28,12 @@ public class Timetabling1 {
 		int graph[][] = cm.getMatrixBiner();
 		int [][] graph_test = cmTest.getMatrixBiner();
 		
-        int jumlah_timeslot = 1500; 
+        int jumlah_timeslot = 6; 
 		
         
-		Scheduler scheduler = new Scheduler(carf92.getSize());
-		scheduler.matrixtimesloting(graph, jumlah_timeslot);
+		Scheduler scheduler = new Scheduler(test.getSize());
+		scheduler.timesloting(graph_test, jumlah_timeslot);
+		scheduler.printSchedule();
 		
 	}
 }

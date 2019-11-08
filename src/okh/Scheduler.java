@@ -1,59 +1,75 @@
 package okh;
 
-
-
 public class Scheduler {
 	private int size; 
-    private int[] timeslot; 
+    private int[] timeslot;
+    private boolean adaSolusi;
   
     public Scheduler(int size) {
     	this.size = size;
     }
     
-    private boolean isSafe(int v, int[][] matrix, int[] timeslot, int c) { 
+    public int getSize() {
+    	return this.size;
+    }
+    
+    public void setSize(int size) {
+    	this.size = size;
+    }
+    
+    public boolean getAdaSolusi() {
+    	return this.adaSolusi;
+    }
+    
+    private void setAdaSolusi(boolean status) {
+    	this.adaSolusi = status;
+    }
+    
+    private boolean checkTimeslot(int vertex, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
-            if (matrix[v][i] == 1 && c == timeslot[i]) 
+            if (matrix[vertex][i] == 1 && t == timeslot[i]) 
                 return false; 
         return true; 
     } 
   
-    private boolean matrixtimeslotingUtil(int[][] matrix, int m, int[] timeslot, int v) { 
-        if (v == size) 
+    private boolean isTersedia(int[][] matrix, int jumlah_timeslot, int[] timeslot, int vertex) { 
+        if (vertex == size) 
             return true; 
   
-        for (int c = 1; c <= m; c++) { 
-            if (isSafe(v, matrix, timeslot, c)) { 
-                timeslot[v] = c; 
+        for (int i = 1; i <= jumlah_timeslot; i++) { 
+            if (checkTimeslot(vertex, matrix, timeslot, i)) { 
+                timeslot[vertex] = i; 
  
-                if (matrixtimeslotingUtil(matrix, m, timeslot, v + 1)) 
+                if (isTersedia(matrix, jumlah_timeslot, timeslot, vertex + 1)) 
                     return true; 
   
-                timeslot[v] = 0; 
+                timeslot[vertex] = 0; 
             } 
         } 
   
         return false; 
     } 
   
-    public boolean matrixtimesloting(int[][] matrix, int m) { 
+    public void timesloting(int[][] matrix, int jumlah_timeslot) { 
         timeslot = new int[size]; 
         for (int i = 0; i < size; i++) 
             timeslot[i] = 0; 
   
-        if (!matrixtimeslotingUtil(matrix, m, timeslot, 0)) { 
-            System.out.println("Tidak ada solusi"); 
-            return false; 
-        } 
-  
-        printSolution(timeslot); 
-        return true; 
+        if (!isTersedia(matrix, jumlah_timeslot, timeslot, 0))
+            setAdaSolusi(false); 
+        else
+        	setAdaSolusi(true); 
+        
     } 
     
-    private void printSolution(int[] timeslot) { 
-        System.out.println("Solution Exists: Following" + 
-                           " are the assigned timeslots"); 
-        for (int i = 0; i < size; i++) 
-            System.out.println("Course "+ (i+1) +" --- Timeslot " + timeslot[i] + " "); 
-        System.out.println(); 
+    public void printSchedule() { 
+    	if (!adaSolusi)
+    		System.out.println("Tidak ada solusi");
+    	else {
+    		for (int i = 0; i < size; i++) 
+                System.out.println("Course "+ (i+1) +" | Timeslot " + timeslot[i]); 
+            System.out.println(); 
+    	}
+    
     }
 }

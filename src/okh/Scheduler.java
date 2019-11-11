@@ -1,5 +1,7 @@
 package okh;
 
+import java.util.Arrays;
+
 public class Scheduler {
 	private int size; 
     private int[] timeslot;
@@ -73,6 +75,7 @@ public class Scheduler {
     	if (!adaSolusi)
     		System.out.println("Tidak ada solusi");
     	else {
+    		System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
     		for (int i = 0; i < size; i++) {
                 System.out.println("Course "+ (i+1) +" | Timeslot " + timeslot[i]); 
     		}

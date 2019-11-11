@@ -13,6 +13,10 @@ public class Scheduler {
     	this.size = size;
     }
     
+    public int[] getTimeslot() {
+    	return this.timeslot;
+    }
+    
     public int getSize() {
     	return this.size;
     }
@@ -59,10 +63,10 @@ public class Scheduler {
         for (int i = 0; i < size; i++) 
             timeslot[i] = 0; 
   
-        if (!isTersedia(matrix, jumlah_timeslot, timeslot, 0))
-            setAdaSolusi(false); 
+        if (isTersedia(matrix, jumlah_timeslot, timeslot, 0))
+            setAdaSolusi(true); 
         else
-        	setAdaSolusi(true); 
+        	setAdaSolusi(false); 
     } 
     
     public void printSchedule() { 
@@ -74,6 +78,6 @@ public class Scheduler {
     		}
             System.out.println(); 
     	}
-    
     }
+    
 }

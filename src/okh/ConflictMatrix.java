@@ -2,6 +2,8 @@ package okh;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class ConflictMatrix {
 	int[][] conflict_matrix;
@@ -12,7 +14,7 @@ public class ConflictMatrix {
 			FileReader fr = new FileReader(dir);
 			BufferedReader br = new BufferedReader(fr);
 			createMatrix(br);
-			
+//			System.out.print(br);
 		} catch(Exception e) {
 			
 		}	
@@ -45,6 +47,37 @@ public class ConflictMatrix {
 		} catch(Exception e) {
 			
 		}
+	}
+	
+	public static void sortDegree(int arr[][], int col) { 
+        Arrays.sort(arr, new Comparator<int[]>() { 
+            
+          @Override              
+          public int compare(final int[] entry1, final int[] entry2) { 
+            if (entry1[col] < entry2[col]) 
+                return 1; 
+            else
+                return -1; 
+          } 
+        });
+    } 
+	
+	public int[][] getLargestDegree() {
+		int[][] temp = this.getMatrixBiner();
+		int[][] courseDegree = new int[temp.length][2];
+		
+		for(int i = 0; i < temp.length; i++) {
+			int count = 0;
+			for(int j = 0; j < temp.length; j++) {
+				if(temp[i][j] > 0)
+					count++;
+			}
+			courseDegree[i][0] = i+1;
+			courseDegree[i][1] = count;
+		}
+		sortDegree(courseDegree, 1);
+		
+		return courseDegree;
 	}
 	
 	public int[][] getMatrixBiner() {

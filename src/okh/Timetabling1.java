@@ -19,16 +19,26 @@ public class Timetabling1 {
 		
 		String test_stu = DIREKTORI+"test.stu";
 		String test_crs = DIREKTORI+"test.crs";
-	
 		
 		CourseSet carf92 = new CourseSet(dir_carf92_crs);
 		CourseSet test = new CourseSet(test_crs);
 		CourseSet cars91 = new CourseSet(dir_cars91_crs);
 		
-		
 		ConflictMatrix conflictMatrixCarf92 = new ConflictMatrix(dir_carf92_stu, carf92.getSize());
 		ConflictMatrix conflictMatrixTest = new ConflictMatrix(test_stu, test.getSize());
 		ConflictMatrix conflictMatrixCars91 = new ConflictMatrix(dir_cars91_stu, cars91.getSize());
+		
+//		conflictMatrixTest.getMatrixBiner();
+//		conflictMatrixTest.printMatrix();
+		
+		int[][] degree = conflictMatrixTest.getLargestDegree();
+		for(int i = 0; i<degree.length; i++) {
+//			for(int j = 0; j < 2; j++) {
+			System.out.print("Course "+degree[i][0]+" : "+ degree[i][1]);
+//			}
+			System.out.println();
+		}
+		
 		
 		int [][] graphCarf92 = conflictMatrixCarf92.getMatrixBiner();
 		int [][] graphCars91 = conflictMatrixCars91.getMatrixBiner();
@@ -36,13 +46,17 @@ public class Timetabling1 {
 		
         int jumlah_timeslot = 10; 
 		
-		Scheduler scheduler = new Scheduler();
-		scheduler.setSize(test.getSize());
-		scheduler.timesloting(graph_test, jumlah_timeslot);
-		scheduler.printSchedule();
+//		Scheduler scheduler = new Scheduler();
+//		scheduler.setSize(test.getSize());
+//		scheduler.timesloting(graph_test, jumlah_timeslot);
+//		scheduler.printSchedule();
+//		int[] ts = scheduler.getTimeslot();
+//		for(int i=0; i<ts.length; i++) {
+//			System.out.println(ts[i]);
+//		}
 		
-		scheduler.setSize(carf92.getSize());
-		scheduler.timesloting(graphCarf92, 100);
-		scheduler.printSchedule();
+//		scheduler.setSize(carf92.getSize());
+//		scheduler.timesloting(graphCarf92, 100);
+//		scheduler.printSchedule();
 	}
 }

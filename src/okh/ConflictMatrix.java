@@ -62,7 +62,7 @@ public class ConflictMatrix {
         });
     } 
 	
-	public int[][] getLargestDegree() {
+	public int[][] getDegree() {
 		int[][] temp = this.getMatrixBiner();
 		int[][] courseDegree = new int[temp.length][2];
 		
@@ -78,6 +78,19 @@ public class ConflictMatrix {
 		sortDegree(courseDegree, 1);
 		
 		return courseDegree;
+	}
+	
+	public int[][] getLargestDegree() {
+		int[][] temp = this.getMatrixBiner();
+		int[][] courseDegree = this.getDegree();
+		int[][] largestDegree = new int[temp.length][temp.length];
+		for(int i = 0; i < temp.length; i++) {
+			for(int j = 0; j < temp.length; j++) {
+				largestDegree[i][j] = temp[courseDegree[i][0]-1][courseDegree[j][0]-1];
+			}
+		}
+		
+		return largestDegree;
 	}
 	
 	public int[][] getMatrixBiner() {

@@ -31,25 +31,25 @@ public class Timetabling1 {
 //		conflictMatrixTest.getMatrixBiner();
 //		conflictMatrixTest.printMatrix();
 		
-		int[][] degree = conflictMatrixTest.getLargestDegree();
-		for(int i = 0; i<degree.length; i++) {
-//			for(int j = 0; j < 2; j++) {
-			System.out.print("Course "+degree[i][0]+" : "+ degree[i][1]);
+		int[][] degree = conflictMatrixCarf92.getLargestDegree();
+//		for(int i = 0; i<degree.length; i++) {
+//			for(int j = 0; j < degree.length; j++) {
+//				System.out.print(degree[i][j]+ " ");
 //			}
-			System.out.println();
-		}
-		
+//			System.out.println();
+//		}
+//		
 		
 		int [][] graphCarf92 = conflictMatrixCarf92.getMatrixBiner();
 		int [][] graphCars91 = conflictMatrixCars91.getMatrixBiner();
 		int [][] graph_test = conflictMatrixTest.getMatrixBiner();
 		
-        int jumlah_timeslot = 10; 
+        int jumlah_timeslot = 50; 
 		
-//		Scheduler scheduler = new Scheduler();
-//		scheduler.setSize(test.getSize());
-//		scheduler.timesloting(graph_test, jumlah_timeslot);
-//		scheduler.printSchedule();
+		Scheduler scheduler = new Scheduler();
+		scheduler.setSize(carf92.getSize());
+		scheduler.timesloting(degree, jumlah_timeslot);
+		scheduler.printSchedule();
 //		int[] ts = scheduler.getTimeslot();
 //		for(int i=0; i<ts.length; i++) {
 //			System.out.println(ts[i]);

@@ -11,29 +11,38 @@ public class Timetabling1 {
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";
 	
 	public static void main(String[] args) {
-		String dir_stu = DIREKTORI+"car-f-92.stu";
-		String dir_crs = DIREKTORI+"car-f-92.crs";
+		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
+		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
+		
+		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
+		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";
 		
 		String test_stu = DIREKTORI+"test.stu";
 		String test_crs = DIREKTORI+"test.crs";
 	
-		CourseSet carf92 = new CourseSet(dir_crs);
+		
+		CourseSet carf92 = new CourseSet(dir_carf92_crs);
 		CourseSet test = new CourseSet(test_crs);
+		CourseSet cars91 = new CourseSet(dir_cars91_crs);
 		
 		
-		ConflictMatrix cm = new ConflictMatrix(dir_stu, carf92.getSize());
+		ConflictMatrix conflictMatrixCarf92 = new ConflictMatrix(dir_carf92_stu, carf92.getSize());
+		ConflictMatrix conflictMatrixTest = new ConflictMatrix(test_stu, test.getSize());
+		ConflictMatrix conflictMatrixCars91 = new ConflictMatrix(dir_cars91_stu, cars91.getSize());
 		
-		ConflictMatrix cmTest = new ConflictMatrix(test_stu, test.getSize());
+		int [][] graphCarf92 = conflictMatrixCarf92.getMatrixBiner();
+		int [][] graphCars91 = conflictMatrixCars91.getMatrixBiner();
+		int [][] graph_test = conflictMatrixTest.getMatrixBiner();
 		
-		int graph[][] = cm.getMatrixBiner();
-		int [][] graph_test = cmTest.getMatrixBiner();
+        int jumlah_timeslot = 10; 
 		
-        int jumlah_timeslot = 6; 
-		
-        
-		Scheduler scheduler = new Scheduler(test.getSize());
+		Scheduler scheduler = new Scheduler();
+		scheduler.setSize(test.getSize());
 		scheduler.timesloting(graph_test, jumlah_timeslot);
 		scheduler.printSchedule();
 		
+		scheduler.setSize(carf92.getSize());
+		scheduler.timesloting(graphCarf92, 100);
+		scheduler.printSchedule();
 	}
 }

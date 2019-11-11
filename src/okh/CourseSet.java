@@ -24,15 +24,12 @@ public class CourseSet {
 		course = new HashSet<String>();
 		String courseLine = null;
 		try {
-			
 			while((courseLine = br.readLine()) != null) {
 				String[] arr = courseLine.split(" ");
 				course.add(arr[0]);
-			}
-			
-			
+			}			
 		} catch(Exception e) {
-			System.out.println("Error cuy");
+			System.out.println("Error boss");
 		}
 	}
 	

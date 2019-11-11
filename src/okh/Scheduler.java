@@ -5,6 +5,10 @@ public class Scheduler {
     private int[] timeslot;
     private boolean adaSolusi;
   
+    public Scheduler() {
+    	this.size = 0;
+    }
+    
     public Scheduler(int size) {
     	this.size = size;
     }
@@ -59,15 +63,15 @@ public class Scheduler {
             setAdaSolusi(false); 
         else
         	setAdaSolusi(true); 
-        
     } 
     
     public void printSchedule() { 
     	if (!adaSolusi)
     		System.out.println("Tidak ada solusi");
     	else {
-    		for (int i = 0; i < size; i++) 
+    		for (int i = 0; i < size; i++) {
                 System.out.println("Course "+ (i+1) +" | Timeslot " + timeslot[i]); 
+    		}
             System.out.println(); 
     	}
     

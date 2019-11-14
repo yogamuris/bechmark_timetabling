@@ -1,5 +1,7 @@
 package okh;
 
+import java.util.Scanner;
+
 /**
  * 
  * @author Muris
@@ -10,6 +12,28 @@ public class Timetabling1 {
 	
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";
 	
+	public static void execute(String dir_stu, String dir_crs, int timeslot) {
+		long startTime = System.nanoTime();
+		
+		CourseSet cs = new CourseSet(dir_crs);
+		
+		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
+		
+		int [][] graph = cm.getLargestDegree();
+		
+        int jumlah_timeslot = timeslot; 
+		
+		Scheduler scheduler = new Scheduler(cs.getSize());
+		scheduler.timesloting(graph, jumlah_timeslot);
+		
+		long endTime   = System.nanoTime();
+		long totalTime = endTime - startTime;
+	
+		scheduler.printSchedule(cm.getDegree());
+		scheduler.exportSchedule("cars91");
+		System.out.println((double)totalTime/1000000000 + " detik");
+	}
+	
 	public static void main(String[] args) {
 		// Direktori file
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
@@ -18,33 +42,135 @@ public class Timetabling1 {
 		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
 		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";
 		
-		String test_stu = DIREKTORI+"test.stu";
-		String test_crs = DIREKTORI+"test.crs";
+		String dir_earf83_stu = DIREKTORI+"ear-f-83.stu";
+		String dir_earf83_crs = DIREKTORI+"ear-f-83.crs";
 		
+		String dir_hecs92_stu = DIREKTORI+"hec-s-92.stu";
+		String dir_hecs92_crs = DIREKTORI+"hec-s-92.crs";
 		
-		// CourseSet
-		CourseSet carf92 = new CourseSet(dir_carf92_crs);
-		CourseSet test = new CourseSet(test_crs);
-		CourseSet cars91 = new CourseSet(dir_cars91_crs);
+		String dir_kfus93_stu = DIREKTORI+"kfu-s-93.stu";
+		String dir_kfus93_crs = DIREKTORI+"kfu-s-93.crs";
 		
+		String dir_lsef91_stu = DIREKTORI+"lse-f-91.stu";
+		String dir_lsef91_crs = DIREKTORI+"lse-f-91.crs";
 		
-		// Conflict Matrix
-		ConflictMatrix conflictMatrixCarf92 = new ConflictMatrix(dir_carf92_stu, carf92.getSize());
-		ConflictMatrix conflictMatrixTest = new ConflictMatrix(test_stu, test.getSize());
-		ConflictMatrix conflictMatrixCars91 = new ConflictMatrix(dir_cars91_stu, cars91.getSize());
+		String dir_purs93_stu = DIREKTORI+"pur-s-93.stu";
+		String dir_purs93_crs = DIREKTORI+"pur-s-93.crs";
 		
-
-		// Matrix model Graph
-		int [][] carf92LargestDegree = conflictMatrixCarf92.getLargestDegree();
-		int [][] graphCarf92 = conflictMatrixCarf92.getMatrixBiner();
-		int [][] graphCars91 = conflictMatrixCars91.getMatrixBiner();
-		int [][] graph_test = conflictMatrixTest.getMatrixBiner();
+		String dir_ryes93_stu = DIREKTORI+"rye-s-93.stu";
+		String dir_ryes93_crs = DIREKTORI+"rye-s-93.crs";
 		
-        int jumlah_timeslot = 50; 
+		String dir_staf83_stu = DIREKTORI+"sta-f-83.stu";
+		String dir_staf83_crs = DIREKTORI+"sta-f-83.crs";
 		
-		Scheduler scheduler = new Scheduler();
-		scheduler.setSize(carf92.getSize());
-		scheduler.timesloting(graphCarf92, jumlah_timeslot);
-		scheduler.printSchedule();
+		String dir_tres92_stu = DIREKTORI+"tre-s-92.stu";
+		String dir_tres92_crs = DIREKTORI+"tre-s-92.crs";
+		
+		String dir_utas92_stu = DIREKTORI+"uta-s-92.stu";
+		String dir_utas92_crs = DIREKTORI+"uta-s-92.crs";
+		
+		String dir_utes92_stu = DIREKTORI+"ute-s-92.stu";
+		String dir_utes92_crs = DIREKTORI+"ute-s-92.crs";
+		
+		String dir_yorf83_stu = DIREKTORI+"yor-f-83.stu";
+		String dir_yorf83_crs = DIREKTORI+"yor-f-83.crs";
+		
+		Scanner in = new Scanner(System.in);
+		
+		int timeslot = 0;
+		
+		System.out.println("=== ASIS TIMESLOTING === \n");
+		System.out.println("1. Car-f-92");
+		System.out.println("2. Car-s-91");
+		System.out.println("3. Ear-f-83");
+		System.out.println("4. Hec-s-92");
+		System.out.println("5. Kfu-s-93");
+		System.out.println("6. Lse-f-91");
+		System.out.println("7. Pur-s-93");
+		System.out.println("8. Rye-s-93");
+		System.out.println("9. Sta-f-83");
+		System.out.println("10. Tre-s-92");
+		System.out.println("11. Uta-s-92");
+		System.out.println("12. Ute-s-92");
+		System.out.println("13. yor-f-83");
+		System.out.println("99. EXIT");
+		
+		System.out.print("\nPilih File : ");
+		int input = in.nextInt();
+		
+		switch(input) {
+		case 1 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_carf92_stu, dir_carf92_crs, timeslot);
+			break;
+		case 2 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_cars91_stu, dir_cars91_crs, timeslot);
+			break;
+		case 3 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_earf83_stu, dir_earf83_crs, timeslot);
+			break;
+		case 4 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_hecs92_stu, dir_hecs92_crs, timeslot);
+			break;
+		case 5 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_kfus93_stu, dir_kfus93_crs, timeslot);
+			break;
+		case 6 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_lsef91_stu, dir_lsef91_crs, timeslot);
+			break;
+		case 7 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_purs93_stu, dir_purs93_crs, timeslot);
+			break;
+		case 8 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_ryes93_stu, dir_ryes93_crs, timeslot);
+			break;
+		case 9 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_staf83_stu, dir_staf83_crs, timeslot);
+			break;
+		case 10 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_tres92_stu, dir_tres92_crs, timeslot);
+			break;
+		case 11 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_utas92_stu, dir_utas92_crs, timeslot);
+			break;
+		case 12 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_utes92_stu, dir_utes92_crs, timeslot);
+			break;
+		case 13 :
+			System.out.print("Jumlah Timeslot : ");
+			timeslot = in.nextInt();
+			execute(dir_yorf83_stu, dir_yorf83_crs, timeslot);
+			break;
+		case 99 :
+			System.out.println("Bye...");
+			System.exit(0);
+		default :
+			System.exit(0);
+		}
+		
+		in.close();
 	}
 }

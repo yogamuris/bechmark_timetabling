@@ -1,11 +1,13 @@
 package okh;
 
+import java.io.FileWriter;
 import java.util.Arrays;
 
 public class Scheduler {
 	private int size; 
     private int[] timeslot;
     private boolean adaSolusi;
+    private String solusi = "";
   
     public Scheduler() {
     	this.size = 0;
@@ -13,6 +15,10 @@ public class Scheduler {
     
     public Scheduler(int size) {
     	this.size = size;
+    }
+    
+    public String getSolusi() {
+    	return this.solusi;
     }
     
     public int[] getTimeslot() {
@@ -77,10 +83,36 @@ public class Scheduler {
     	else {
     		System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
     		for (int i = 0; i < size; i++) {
-                System.out.println("Course "+ (i+1) +" | Timeslot " + timeslot[i]); 
+                System.out.println(+ (i+1) +" " + timeslot[i]); 
+                
     		}
             System.out.println(); 
     	}
     }
+    
+    public void printSchedule(int[][] degree) {
+    	if (!adaSolusi)
+    		System.out.println("Tidak ada solusi");
+    	else {
+    		System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
+    		for (int i = 0; i < size; i++) {
+                System.out.println(+ (degree[i][0]) +" " + timeslot[i]); 
+                solusi += degree[i][0] + " " + timeslot[i] +"\n";
+    		}
+            System.out.println(); 
+    	}
+    }
+    
+    public void exportSchedule(String filename) {
+    	try{    
+    		FileWriter fw=new FileWriter("D:\\"+filename+".sol");    
+            fw.write(this.getSolusi());    
+            fw.close();    
+        } catch(Exception e){
+        	System.out.println(e);
+        }    
+            System.out.println("File "+filename+" berhasil disimpan di D");    
+       	}
+    
     
 }

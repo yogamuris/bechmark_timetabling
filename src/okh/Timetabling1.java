@@ -13,16 +13,14 @@ public class Timetabling1 {
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";
 	
 	public static void execute(String dir_stu, String dir_crs, int timeslot) {
-		long startTime = System.nanoTime();
+		
 		
 		CourseSet cs = new CourseSet(dir_crs);
-		
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
 		int [][] graph = cm.getLargestDegree();
-		
         int jumlah_timeslot = timeslot; 
-		
+        long startTime = System.nanoTime();
 		Scheduler scheduler = new Scheduler(cs.getSize());
 		scheduler.timesloting(graph, jumlah_timeslot);
 		
@@ -30,8 +28,8 @@ public class Timetabling1 {
 		long totalTime = endTime - startTime;
 	
 		scheduler.printSchedule(cm.getDegree());
-		scheduler.exportSchedule("cars91");
-		System.out.println((double)totalTime/1000000000 + " detik");
+		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
+		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");
 	}
 	
 	public static void main(String[] args) {

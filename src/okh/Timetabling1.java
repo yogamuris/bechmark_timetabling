@@ -20,13 +20,15 @@ public class Timetabling1 {
 		
 		int [][] graph = cm.getLargestDegree();
         int jumlah_timeslot = timeslot; 
+        // Start
         long startTime = System.nanoTime();
 		Scheduler scheduler = new Scheduler(cs.getSize());
 		scheduler.timesloting(graph, jumlah_timeslot);
 		
 		long endTime   = System.nanoTime();
 		long totalTime = endTime - startTime;
-	
+		// End
+		
 		scheduler.printSchedule(cm.getDegree());
 		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
 		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");

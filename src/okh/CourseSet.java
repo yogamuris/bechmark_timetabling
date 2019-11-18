@@ -20,6 +20,10 @@ public class CourseSet {
 		
 	}
 	
+	public Set<String> getCourse() {
+		return this.course;
+	}
+	
 	public void readCourse(BufferedReader br) {
 		course = new HashSet<String>();
 		String courseLine = null;

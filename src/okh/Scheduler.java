@@ -7,10 +7,15 @@ public class Scheduler {
 	private int size; 
     private int[] timeslot;
     private boolean adaSolusi;
+    private int[][] schedule;
     private String solusi = "";
   
     public Scheduler() {
     	this.size = 0;
+    }
+    
+    public int[][] getSchedule() {
+    	return this.schedule;
     }
     
     public Scheduler(int size) {
@@ -41,25 +46,25 @@ public class Scheduler {
     	this.adaSolusi = status;
     }
     
-    private boolean checkTimeslot(int vertex, int[][] matrix, int[] timeslot, int t) { 
+    private boolean checkTimeslot(int course, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
-            if (matrix[vertex][i] == 1 && t == timeslot[i]) 
+            if (matrix[course][i] == 1 && t == timeslot[i]) 
                 return false; 
         return true; 
     } 
   
-    private boolean isTersedia(int[][] matrix, int jumlah_timeslot, int[] timeslot, int vertex) { 
-        if (vertex == size) 
+    private boolean isTersedia(int[][] matrix, int jumlah_timeslot, int[] timeslot, int course) { 
+        if (course == size) 
             return true; 
   
         for (int i = 1; i <= jumlah_timeslot; i++) { 
-            if (checkTimeslot(vertex, matrix, timeslot, i)) { 
-                timeslot[vertex] = i; 
+            if (checkTimeslot(course, matrix, timeslot, i)) { 
+                timeslot[course] = i; 
  
-                if (isTersedia(matrix, jumlah_timeslot, timeslot, vertex + 1)) 
+                if (isTersedia(matrix, jumlah_timeslot, timeslot, course + 1)) 
                     return true; 
   
-                timeslot[vertex] = 0; 
+                timeslot[course] = 0; 
             } 
         } 
   
@@ -94,24 +99,27 @@ public class Scheduler {
     	if (!adaSolusi)
     		System.out.println("Tidak ada solusi");
     	else {
-    		System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
+    		schedule = new int[size][2];
     		for (int i = 0; i < size; i++) {
-                System.out.println(+ (degree[i][0]) +" " + timeslot[i]); 
+                System.out.println(+ (degree[i][0]) +" " + (timeslot[i])); 
                 solusi += degree[i][0] + " " + timeslot[i] +"\n";
+                schedule[i][0] = degree[i][0];
+                schedule[i][1] = timeslot[i];
     		}
-            System.out.println(); 
+            System.out.println();
+            System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
     	}
     }
     
     public void exportSchedule(String filename) {
     	try{    
-    		FileWriter fw=new FileWriter("D:\\"+filename+".sol");    
+    		FileWriter fw=new FileWriter("D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/ExamTimetableEvaluation/"+filename+".sol");    
             fw.write(this.getSolusi());    
             fw.close();    
         } catch(Exception e){
         	System.out.println(e);
         }    
-            System.out.println("File "+filename+" berhasil disimpan di D");    
+//            System.out.println("File "+filename+" berhasil disimpan bos");    
        	}
     
     

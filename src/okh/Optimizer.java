@@ -3,46 +3,46 @@ package okh;
 import okh.Utils;
 
 public class Optimizer {
-	public static void hillclimbing(String dir_stu, String dir_crs, int timeslot) {
+	public static void randomSearch(String dir_stu, String dir_crs, int timeslot) {
 		CourseSet cs = new CourseSet(dir_crs);
-		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());	
+		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
+		
 		int [][] copyGraph = Utils.copyArray(cm.getMatrix());
-        
+		int [][] graph = cm.getRandomMatrix();
 		
-		int jumlah_timeslot = timeslot; 
-        // Start
-        long startTime = System.nanoTime();
+		int jumlah_timeslot = timeslot;
 		Scheduler scheduler = new Scheduler(cs.getSize());
-//		scheduler.timesloting(graph, jumlah_timeslot);
+		scheduler.timesloting(graph, jumlah_timeslot);
 		
-		long endTime   = System.nanoTime();
-		long totalTime = endTime - startTime;
-		// End
-		
-		scheduler.printSchedule(cm.getDegree());
-		
+		scheduler.printSchedule(cm.getRandomIndex(graph.length));
 		int jumlah = cm.getJumlahStudent();
 		int[][] jadwal = scheduler.getSchedule();
+		
 		int[][] gr = cm.getLD(copyGraph);
 		
-		int[][] initialSolution = cm.getRandomMatrix();
-		double penaltyAwal = Utils.getPenalty(initialSolution, jadwal, jumlah);
-		scheduler.timesloting(initialSolution, jumlah_timeslot);
-		
-		scheduler.printSchedule(cm.getRandomIndex(initialSolution.length));
-		
-		for(int i = 0; i < 1000; i++) {
-			int[][] randomMatrix = cm.getRandomMatrix();
-			double penaltyIterasi = Utils.getPenalty(randomMatrix, jadwal, jumlah);
-			if(penaltyAwal > penaltyIterasi)
-				penaltyAwal = penaltyIterasi;
+		double penalty = Utils.getPenalty(gr, jadwal, jumlah);
+		System.out.println(penalty);
+		for(int i = 0; i < 10000; i++) {
+			CourseSet csIter = new CourseSet(dir_crs);
+			ConflictMatrix cmIter = new ConflictMatrix(dir_stu, cs.getSize());
 			
-			System.out.println(penaltyAwal);
+			int [][] copyGraphIter = Utils.copyArray(cmIter.getMatrix());
+			int [][] graphIter = cm.getRandomMatrix();
+			
+			Scheduler schedulerIter = new Scheduler(csIter.getSize());
+			
+			schedulerIter.timesloting(graphIter, jumlah_timeslot);
+			schedulerIter.printSchedule(cm.getRandomIndex(graphIter.length));
+			int[][] jadwalIter = schedulerIter.getSchedule();
+			
+			int[][] grIter = cm.getLD(copyGraphIter);
+			
+			double penalty2 = Utils.getPenalty(grIter, jadwalIter, jumlah);
+			
+			if(penalty > penalty2)
+				penalty = penalty2;
+			
+			System.out.println("Iterasi "+(i+1)+" - Penalty : "+penalty);
 		}
-		
-		
-		System.out.println("Penalty : "+ penaltyAwal);
-		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");
-		
 	}
 }

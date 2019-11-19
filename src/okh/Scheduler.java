@@ -14,12 +14,12 @@ public class Scheduler {
     	this.size = 0;
     }
     
-    public int[][] getSchedule() {
-    	return this.schedule;
-    }
-    
     public Scheduler(int size) {
     	this.size = size;
+    }
+    
+    public int[][] getSchedule() {
+    	return this.schedule;
     }
     
     public String getSolusi() {

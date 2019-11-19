@@ -1,10 +1,8 @@
 
 package okh;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
+import okh.Utils;
+import okh.Optimizer;
 
 /**
  * 
@@ -16,30 +14,17 @@ public class Main {
 	
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";
 	
-	public static int[][] copyArray(int[][] arr) {
-		int[][] arrcop = new int[arr.length][arr.length];
-		
-		for(int i = 0; i < arr.length; i++) {
-			for(int j = 0; j < arr.length; j++) {
-				arrcop[i][j] = arr[i][j];
-			}
-		}
-		
-		return arrcop;
-		
-	}
-	
 	public static void execute(String dir_stu, String dir_crs, int timeslot) {
 		
-		long startTime = System.nanoTime();
+		
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());	
-		int [][] copyGraph = copyArray(cm.getMatrix());
+		int [][] copyGraph = Utils.copyArray(cm.getMatrix());
 		int [][] graph = cm.getLargestDegree();
 		int jumlah_timeslot = timeslot; 
 		
         // Start
-        
+        long startTime = System.nanoTime();
 		Scheduler scheduler = new Scheduler(cs.getSize());
 		scheduler.timesloting(graph, jumlah_timeslot);
 		
@@ -55,25 +40,10 @@ public class Main {
 		
 		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
 		System.out.println(jumlah);
-		System.out.println("Penalty : "+getPenalty(gr, jadwal, jumlah));
+		System.out.println("Penalty : " + Utils.getPenalty(gr, jadwal, jumlah));
 		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");
 	}
 	
-	public static double getPenalty(int[][] matrix, int[][] jadwal, int jumlah) {
-		double penalty = 0;
-		
-		for(int i = 0; i < matrix.length - 1; i++) {
-			for(int j = i+1; j < matrix.length; j++) {
-				if(matrix[i][j] != 0) {
-					if(Math.abs(jadwal[j][1] - jadwal[i][1]) >= 1 && Math.abs(jadwal[j][1] - jadwal[i][1]) <= 5) {
-						penalty = penalty + (matrix[i][j] * (Math.pow(2, 5-(Math.abs(jadwal[j][1] - jadwal[i][1])))));
-					}
-				}
-			}
-		}
-		
-		return penalty/jumlah;
-	}
 	
 	public static void executeOptimizer(String dir_stu, String dir_crs, int timeslot, String filename) {
 		CourseSet cs = new CourseSet(dir_crs);

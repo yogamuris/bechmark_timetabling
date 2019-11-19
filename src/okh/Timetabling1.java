@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
-
+import okh.Utils;
+import okh.Optimizer;
 /**
  * 
  * @author Muris
@@ -16,25 +17,14 @@ public class Timetabling1 {
 	
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";
 	
-	public static int[][] copyArray(int[][] arr) {
-		int[][] arrcop = new int[arr.length][arr.length];
-		
-		for(int i = 0; i < arr.length; i++) {
-			for(int j = 0; j < arr.length; j++) {
-				arrcop[i][j] = arr[i][j];
-			}
-		}
-		
-		return arrcop;
-		
-	}
+	
 	
 	public static void execute(String dir_stu, String dir_crs, int timeslot) {
 		
 		
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());	
-		int [][] copyGraph = copyArray(cm.getMatrix());
+		int [][] copyGraph = Utils.copyArray(cm.getMatrix());
 		
 		int [][] graph = cm.getLargestDegree();
         
@@ -57,25 +47,11 @@ public class Timetabling1 {
 		
 		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
 		System.out.println(jumlah);
-		System.out.println("Penalty : "+getPenalty(gr, jadwal, jumlah));
+		System.out.println("Penalty : " + Utils.getPenalty(gr, jadwal, jumlah));
 		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");
 	}
 	
-	public static double getPenalty(int[][] matrix, int[][] jadwal, int jumlah) {
-		double penalty = 0;
-		
-		for(int i = 0; i < matrix.length - 1; i++) {
-			for(int j = i+1; j < matrix.length; j++) {
-				if(matrix[i][j] != 0) {
-					if(Math.abs(jadwal[j][1] - jadwal[i][1]) >= 1 && Math.abs(jadwal[j][1] - jadwal[i][1]) <= 5) {
-						penalty = penalty + (matrix[i][j] * (Math.pow(2, 5-(Math.abs(jadwal[j][1] - jadwal[i][1])))));
-					}
-				}
-			}
-		}
-		
-		return penalty/jumlah;
-	}
+	
 	
 	public static double getPenalty2(String filename) throws IOException {
 		ProcessBuilder builder = new ProcessBuilder(
@@ -113,7 +89,7 @@ public class Timetabling1 {
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
 		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
 		
-		execute(dir_carf92_stu, dir_carf92_crs, 100);
+		Optimizer.hillclimbing(dir_carf92_stu, dir_carf92_crs, 100);
 		
 		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
 		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";

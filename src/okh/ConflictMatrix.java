@@ -43,11 +43,6 @@ public class ConflictMatrix {
 		return conflict_matrix;
 	}
 	
-	/**
-	 * 
-	 * @param br
-	 * Method ini digunakan untuk membuat conflict matrix
-	 */
 	public void createMatrix(BufferedReader br) {
 		String courseLine = null;
 		try {
@@ -123,11 +118,6 @@ public class ConflictMatrix {
 		return largestDegree;
 	}
 	
-	/**
-	 * Method ini digunakan untuk melakukan pengurutan dari array 2 dimensi
-	 * @param arr array 2D
-	 * @param col kolom yang akan diurutkan
-	 */
 	public static void sortDegree(int arr[][], int col) { 
 		Comparator<int[]> byDegree = Comparator.comparing( row -> row[1] );
 		Comparator<int[]> byCourse = Comparator.comparing( row -> row[0] );
@@ -135,10 +125,6 @@ public class ConflictMatrix {
 		Arrays.sort(arr, Collections.reverseOrder(byDegree.thenComparing(byCourse.reversed())));
     } 
 	
-	/**
-	 * Method ini digunakan untuk mendapatkan degree dari masing-masing vertex
-	 * @return array yang berisi vertex dan degreenya yang urut secara ascending
-	 */
 	public int[][] getDegree() {
 		int[][] temp = Arrays.copyOf(getMatrixBiner(), getMatrixBiner().length);
 		int[][] courseDegree = new int[temp.length][2];
@@ -157,10 +143,6 @@ public class ConflictMatrix {
 		return courseDegree;
 	}
 	
-	/**
-	 * Method ini digunakan untuk mendapatkan matrix pemodelan graph yang urut sesuai dengan degree vertex paling besar
-	 * @return matrix pemodelan graph dengan urutan degree vertex paling besar
-	 */
 	public int[][] getLargestDegree() {
 		int[][] temp = Arrays.copyOf(getMatrixBiner(), getMatrixBiner().length);
 		int[][] courseDegree = this.getDegree();
@@ -188,10 +170,6 @@ public class ConflictMatrix {
 		
 	}
 	
-	/**
-	 * Method ini digunakan untuk mendapatkan matrix pemodelan graph dari conflict_matrix
-	 * @return matrix pemodelan graph dari conflict matrix
-	 */
 	public int[][] getMatrixBiner() {
 		int[][] temp = Arrays.copyOf(conflict_matrix, conflict_matrix.length);
 		for(int i = 0; i < temp.length; i++) {
@@ -204,9 +182,6 @@ public class ConflictMatrix {
 		return temp;
 	}
 	
-	/**
-	 * Method ini digunakan untuk print isi matrix
-	 */
 	public void printMatrix() {
 		for(int i = 0; i < conflict_matrix.length; i++) {
 			for(int j = 0; j < conflict_matrix.length; j++) {

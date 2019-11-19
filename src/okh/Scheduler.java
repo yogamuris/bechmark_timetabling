@@ -101,7 +101,7 @@ public class Scheduler {
     	else {
     		schedule = new int[size][2];
     		for (int i = 0; i < size; i++) {
-                System.out.println(+ (degree[i][0]) +" " + (timeslot[i])); 
+//                System.out.println(+ (degree[i][0]) +" " + (timeslot[i])); 
                 solusi += degree[i][0] + " " + timeslot[i] +"\n";
                 schedule[i][0] = degree[i][0];
                 schedule[i][1] = timeslot[i];

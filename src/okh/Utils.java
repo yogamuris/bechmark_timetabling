@@ -1,5 +1,7 @@
 package okh;
 
+import java.util.Random;
+
 public class Utils {
 	public static int[][] copyArray(int[][] arr) {
 		int[][] arrcop = new int[arr.length][arr.length];
@@ -28,5 +30,10 @@ public class Utils {
 		}
 		
 		return penalty/jumlah;
+	}
+	
+	public static int getRandomNumber(int min, int max) {
+	    Random random = new Random();
+	    return random.nextInt(max - min) + min;
 	}
 }

@@ -66,8 +66,6 @@ public class Main {
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
 		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
 		
-		execute(dir_carf92_stu, dir_carf92_crs, 100);
-		
 		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
 		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";
 		

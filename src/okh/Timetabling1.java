@@ -89,7 +89,14 @@ public class Timetabling1 {
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
 		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
 		
-		Optimizer.randomSearch(dir_carf92_stu, dir_carf92_crs, 100);
+		long startTime = System.nanoTime();
+		Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, 100);
+		long endTime = System.nanoTime();
+		System.out.println((double)(endTime-startTime)/1000000000);
+//		int[][] jadwal = Optimizer.getJadwal();
+//		for(int i = 0; i < jadwal.length; i++) {
+//			System.out.println(jadwal[i][0]+" "+jadwal[i][1]);
+//		}
 		
 		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
 		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";

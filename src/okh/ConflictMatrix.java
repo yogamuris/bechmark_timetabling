@@ -105,7 +105,7 @@ public class ConflictMatrix {
     } 
 	
 	public int[][] getMostCourse() {
-		int[][] temp = Arrays.copyOf(getMatrixBiner(), getMatrixBiner().length);
+		int[][] temp = Arrays.copyOf(getMatrix(), getMatrix().length);
 		int[][] courseDegree = this.mostCourse;
 		sortCourse(courseDegree, 1);
 		int[][] largestDegree = new int[temp.length][temp.length];
@@ -126,13 +126,13 @@ public class ConflictMatrix {
     } 
 	
 	public int[][] getDegree() {
-		int[][] temp = Arrays.copyOf(getMatrixBiner(), getMatrixBiner().length);
+		int[][] temp = Arrays.copyOf(getMatrix(), getMatrix().length);
 		int[][] courseDegree = new int[temp.length][2];
 		
 		for(int i = 0; i < temp.length; i++) {
 			int count = 0;
 			for(int j = 0; j < temp.length; j++) {
-				if(temp[i][j] > 0)
+				if(temp[i][j] != 0)
 					count++;
 			}
 			courseDegree[i][0] = i+1;
@@ -144,7 +144,7 @@ public class ConflictMatrix {
 	}
 	
 	public int[][] getLargestDegree() {
-		int[][] temp = Arrays.copyOf(getMatrixBiner(), getMatrixBiner().length);
+		int[][] temp = Arrays.copyOf(getMatrix(), getMatrix().length);
 		int[][] courseDegree = this.getDegree();
 		int[][] largestDegree = new int[temp.length][temp.length];
 		for(int i = 0; i < temp.length; i++) {
@@ -170,17 +170,17 @@ public class ConflictMatrix {
 		
 	}
 	
-	public int[][] getMatrixBiner() {
-		int[][] temp = Arrays.copyOf(conflict_matrix, conflict_matrix.length);
-		for(int i = 0; i < temp.length; i++) {
-			for(int j = 0; j < temp.length; j++) {
-				if(temp[i][j] > 0)
-					temp[i][j] = 1;
-			}
-		}
-		
-		return temp;
-	}
+//	public int[][] getMatrixBiner() {
+//		int[][] temp = Arrays.copyOf(conflict_matrix, conflict_matrix.length);
+//		for(int i = 0; i < temp.length; i++) {
+//			for(int j = 0; j < temp.length; j++) {
+//				if(temp[i][j] > 0)
+//					temp[i][j] = 1;
+//			}
+//		}
+//		
+//		return temp;
+//	}
 	
 	public void printMatrix() {
 		for(int i = 0; i < conflict_matrix.length; i++) {
@@ -219,7 +219,7 @@ public class ConflictMatrix {
 	}
 	
 	public int[][] getRandomMatrix() {
-		int[][] temp = getMatrixBiner();
+		int[][] temp = getMatrix();
 		int[][] randomIndex = this.getRandomIndex(temp.length);
 		int[][] randomMatrix = new int[temp.length][temp.length];
 		for(int i = 0; i < temp.length; i++) {

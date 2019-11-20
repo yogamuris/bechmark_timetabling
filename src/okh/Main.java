@@ -39,7 +39,6 @@ public class Main {
 		int[][] gr = cm.getLD(copyGraph);
 		
 		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
-		System.out.println(jumlah);
 		System.out.println("Penalty : " + Utils.getPenalty(gr, jadwal, jumlah));
 		System.out.println("Total Eksekusi : " + (double)totalTime/1000000000 + " detik");
 	}

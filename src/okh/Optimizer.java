@@ -1,7 +1,5 @@
 package okh;
 
-import java.util.Arrays;
-
 import okh.Utils;
 
 public class Optimizer {
@@ -58,71 +56,56 @@ public class Optimizer {
 		}
 	}
 	
-	public static void hillClimbing(String dir_stu, String dir_crs, int timeslot) {
+	public static void hillClimbing(String dir_stu, String dir_crs, int timeslot, int iterasi) {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
-		int [][] copyGraph = Utils.copyArray(cm.getMatrix());
-		int [][] graph = cm.getLargestDegree();
-		
+		int [][] conflict_matrix = cm.getLargestDegree();
 		int jumlahTimeslot = timeslot;
+		
 		Scheduler scheduler = new Scheduler(cs.getSize());
-		scheduler.timesloting(graph, jumlahTimeslot);
-		
+		scheduler.timesloting(conflict_matrix, jumlahTimeslot);
 		scheduler.printSchedule(cm.getDegree());
-		int jumlah = cm.getJumlahStudent();
+		
+		int jumlahStudent = cm.getJumlahStudent();
+		
 		int[][] jadwal = scheduler.getSchedule();
+		int[][] jadwalTemp = scheduler.getSchedule();
+//		int[][] jadwalTemp = new int[jadwal.length][2];
+//		for(int i = 0; i< jadwal.length; i++) {
+//			jadwalTemp[i][0] = jadwal[i][0];
+//			jadwalTemp[i][1] = jadwal[i][0];
+//		}
 		
-		int[][] gr = cm.getLD(copyGraph);
 		
-		double penalty = Utils.getPenalty(gr, jadwal, jumlah);
+		double penalty = Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent);
 		System.out.println(penalty);
 		
-		int[] courseSeq = new int[jadwal.length];
-		int[] timeslotSeq = new int[jadwal.length];
+		int max_timeslot = 0;
 		
 		for(int i = 0; i<jadwal.length; i++) {
-			courseSeq[i] = jadwal[i][0];
-			timeslotSeq[i] = jadwal[i][1];
+			if(jadwal[i][1] > max_timeslot)
+				max_timeslot = jadwal[i][1];
 		}
-
-		int[][] jadwalTerbaik = new int[jadwal.length][2];
 		
-		for(int i = 0; i < 1000; i++) {
-			int randomCourseIndex = Utils.getRandomNumber(0, courseSeq.length);
-			int randomTimeslot = Utils.getRandomNumber(0, Arrays.stream(timeslotSeq).max().getAsInt());
-		
+		for(int i = 0; i < iterasi; i++) {
+			int randomCourseIndex = Utils.getRandomNumber(0, conflict_matrix.length);
+			int randomTimeslot = Utils.getRandomNumber(0, max_timeslot);
 			
-			
-			CourseSet csIter = new CourseSet(dir_crs);
-			ConflictMatrix cmIter = new ConflictMatrix(dir_stu, cs.getSize());
-			
-			int [][] copyGraphIter = Utils.copyArray(cmIter.getMatrix());
-			int [][] graphIter = cm.getLargestDegree();
-			
-			Scheduler schedulerIter = new Scheduler(csIter.getSize());
-			
-			schedulerIter.timesloting(graphIter, jumlahTimeslot);
-			schedulerIter.printSchedule(cm.getDegree());
-			jadwal[randomCourseIndex][1] = randomTimeslot;
-			
-			
-			int[][] grIter = cm.getLD(copyGraphIter);
-			
-			double penalty2 = Utils.getPenalty(grIter, jadwal, jumlah);
-			
-			if(penalty > penalty2) {
-				jadwalTerbaik = jadwal;
-				penalty = penalty2;
+			if (Scheduler.checkRandomTimeslot(randomCourseIndex, randomTimeslot, conflict_matrix, jadwal)) {	
+				jadwalTemp[randomCourseIndex][1] = randomTimeslot;
+				double penalty2 = Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent);
+				
+				if(penalty > penalty2) {
+					penalty = Utils.getPenalty(conflict_matrix, jadwalTemp, jumlahStudent);
+					jadwal[randomCourseIndex][1] = jadwalTemp[randomCourseIndex][1];
+				}
 			}
-			
-			System.out.println("Iterasi "+(i+1)+" - Penalty : "+penalty2);
-			
+			System.out.println("Iterasi "+(i+1)+" - Penalty : "+penalty);
 		}
 		
-		setJadwal(jadwalTerbaik);
+		setJadwal(jadwal);
 		System.out.println(penalty);
-
 	}
 	
 	public static void simulatedAnnealing() {

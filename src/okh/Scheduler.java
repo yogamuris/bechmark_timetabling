@@ -48,10 +48,17 @@ public class Scheduler {
     
     private boolean checkTimeslot(int course, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
-            if (matrix[course][i] == 1 && t == timeslot[i]) 
+            if (matrix[course][i] != 0 && t == timeslot[i]) 
                 return false; 
         return true; 
     } 
+    
+    public static boolean checkRandomTimeslot(int randomCourse, int randomTimeslot, int[][] matrix, int[][] jadwal){
+        for(int i=0; i<matrix.length; i++)
+            if(matrix[randomCourse][i]!=0 && jadwal[i][1]==randomTimeslot)
+                return false;
+        return true;              
+    }
   
     private boolean isTersedia(int[][] matrix, int jumlah_timeslot, int[] timeslot, int course) { 
         if (course == size) 
@@ -80,7 +87,7 @@ public class Scheduler {
             setAdaSolusi(true); 
         else
         	setAdaSolusi(false); 
-    } 
+    }
     
     public void printSchedule() { 
     	if (!adaSolusi)
@@ -106,8 +113,8 @@ public class Scheduler {
                 schedule[i][0] = degree[i][0];
                 schedule[i][1] = timeslot[i];
     		}
-            System.out.println();
-            System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
+//            System.out.println();
+//            System.out.println("Jumlah Timeslot minimum : " + Arrays.stream(timeslot).max().getAsInt());
     	}
     }
     
@@ -120,7 +127,7 @@ public class Scheduler {
         	System.out.println(e);
         }    
 //            System.out.println("File "+filename+" berhasil disimpan bos");    
-       	}
+       }
     
     
 }

@@ -11,32 +11,22 @@ import java.util.Random;
 
 public class ConflictMatrix {
 	int[][] conflict_matrix;
-	int[][] mostCourse;
 	int jumlah_student = 0;
 	
 	public ConflictMatrix(String dir, int size) {
 		conflict_matrix = new int[size][size];
-		mostCourse = new int[size][2];
 		try {
 			FileReader fr = new FileReader(dir);
 			BufferedReader br = new BufferedReader(fr);
-			FileReader fr2 = new FileReader(dir);
-			BufferedReader br2 = new BufferedReader(fr2);
 			
 			createMatrix(br);
-			getMostTakenCourse(br2);
-			
 		} catch(Exception e) {
-			
+			System.out.println(e);
 		}	
 	}
 	
 	public int getJumlahStudent() {
 		return this.jumlah_student;
-	}
-	
-	public int[][] getCourse() {
-		return this.mostCourse;
 	}
 	
 	public int[][] getMatrix() {
@@ -66,58 +56,7 @@ public class ConflictMatrix {
 			
 		}
 	}
-	
-	public void getMostTakenCourse(BufferedReader br) {
-		String courseLine2 = null;
-		try {
-			while((courseLine2 = br.readLine()) != null) {
-				String[] arr = courseLine2.split(" ");
-				if(arr.length > 1) {
-					for(int i=0; i<arr.length; i++) {
-						int index = Integer.parseInt(arr[i]);
-						this.mostCourse[index-1][0] = index;
-						this.mostCourse[index-1][1]++;
-					}
-				} else {
-					this.mostCourse[Integer.parseInt(arr[0])-1][0] = Integer.parseInt(arr[0]);
-					this.mostCourse[Integer.parseInt(arr[0])-1][1]++;
-				}
-			}
-			
-			br.close();	
-			
-		} catch(Exception e) {
-			
-		}
-	}
-	
-	public static void sortCourse(int arr[][], int col) { 
-        Arrays.sort(arr, new Comparator<int[]>() { 
-            
-          @Override              
-          public int compare(final int[] entry1, final int[] entry2) { 
-            if (entry1[col] < entry2[col]) 
-                return 1; 
-            else
-                return -1; 
-          } 
-        });
-    } 
-	
-	public int[][] getMostCourse() {
-		int[][] temp = Arrays.copyOf(getMatrix(), getMatrix().length);
-		int[][] courseDegree = this.mostCourse;
-		sortCourse(courseDegree, 1);
-		int[][] largestDegree = new int[temp.length][temp.length];
-		for(int i = 0; i < temp.length; i++) {
-			for(int j = 0; j < temp.length; j++) {
-				largestDegree[i][j] = temp[courseDegree[i][0]-1][courseDegree[j][0]-1];
-			}
-		}
-		
-		return largestDegree;
-	}
-	
+
 	public static void sortDegree(int arr[][], int col) { 
 		Comparator<int[]> byDegree = Comparator.comparing( row -> row[1] );
 		Comparator<int[]> byCourse = Comparator.comparing( row -> row[0] );
@@ -156,32 +95,6 @@ public class ConflictMatrix {
 		return largestDegree;
 	}
 	
-	public int[][] getLD(int[][] arr) {
-		int[][] temp = arr;
-		int[][] courseDegree = this.getDegree();
-		int[][] largestDegree = new int[temp.length][temp.length];
-		for(int i = 0; i < temp.length; i++) {
-			for(int j = 0; j < temp.length; j++) {
-				largestDegree[i][j] = temp[courseDegree[i][0]-1][courseDegree[j][0]-1];
-			}
-		}
-		
-		return largestDegree;
-		
-	}
-	
-//	public int[][] getMatrixBiner() {
-//		int[][] temp = Arrays.copyOf(conflict_matrix, conflict_matrix.length);
-//		for(int i = 0; i < temp.length; i++) {
-//			for(int j = 0; j < temp.length; j++) {
-//				if(temp[i][j] > 0)
-//					temp[i][j] = 1;
-//			}
-//		}
-//		
-//		return temp;
-//	}
-	
 	public void printMatrix() {
 		for(int i = 0; i < conflict_matrix.length; i++) {
 			for(int j = 0; j < conflict_matrix.length; j++) {
@@ -193,7 +106,7 @@ public class ConflictMatrix {
 	
 	
 	/*
-	 * METHOD BUAT HILL CLIMBING
+	 * METHOD BUAT RANDOM SEARCH
 	 */
 	
 	public int getRandomNumber(int min, int max) {

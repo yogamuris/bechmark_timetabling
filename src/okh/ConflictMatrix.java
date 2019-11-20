@@ -95,6 +95,20 @@ public class ConflictMatrix {
 		return largestDegree;
 	}
 	
+	public int[][] getLargestDegree(int[][] arr) {
+		int[][] temp = arr;
+		int[][] courseDegree = this.getDegree();
+		int[][] largestDegree = new int[temp.length][temp.length];
+		for(int i = 0; i < temp.length; i++) {
+			for(int j = 0; j < temp.length; j++) {
+				largestDegree[i][j] = temp[courseDegree[i][0]-1][courseDegree[j][0]-1];
+			}
+		}
+		
+		return largestDegree;
+		
+	}
+	
 	public void printMatrix() {
 		for(int i = 0; i < conflict_matrix.length; i++) {
 			for(int j = 0; j < conflict_matrix.length; j++) {

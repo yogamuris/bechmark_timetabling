@@ -16,8 +16,12 @@ public class Timetabling1 {
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
 		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
 		
+		String test_stu = DIREKTORI+"test.stu";
+		String test_crs = DIREKTORI+"test.crs";
+		
 		long startTime = System.nanoTime();
-		Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, 100, 100000);
+//		Optimizer.hillClimbing(test_stu, test_crs, 100, 5);
+		Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, 100, 10000);
 		long endTime = System.nanoTime();
 		System.out.println((double)(endTime-startTime)/1000000000);
 		int[][] jadwal = Optimizer.getJadwal();

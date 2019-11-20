@@ -2,7 +2,7 @@
 package okh;
 import java.util.Scanner;
 import okh.Utils;
-import okh.Optimizer;
+//import okh.Optimizer;
 
 /**
  * 
@@ -36,7 +36,7 @@ public class Main {
 		int jumlah = cm.getJumlahStudent();
 		int[][] jadwal = scheduler.getSchedule();
 		
-		int[][] gr = cm.getLD(copyGraph);
+		int[][] gr = cm.getLargestDegree(copyGraph);
 		
 		scheduler.exportSchedule(dir_stu.substring(dir_stu.length()-12, dir_stu.length()-4));
 		System.out.println("Penalty : " + Utils.getPenalty(gr, jadwal, jumlah));

@@ -92,7 +92,7 @@ public class Optimizer {
 //		for(int i = 0; i < jadwal.length; i++) {
 //			System.out.println(jadwal[i][0]+ " " + jadwal[i][1]);
 //		}
-		
+//		
 //		System.out.println();
 		
 		for(int i = 0; i < iterasi; i++) {
@@ -121,7 +121,7 @@ public class Optimizer {
 				}
 			}
 //			System.out.println("\n###\n");
-//			
+			
 			System.out.println("Iterasi "+(i+1)+" - Penalty : "+penalty);
 		}
 		

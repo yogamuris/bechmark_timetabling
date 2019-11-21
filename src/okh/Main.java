@@ -2,7 +2,7 @@
 package okh;
 import java.util.Scanner;
 import okh.Utils;
-//import okh.Optimizer;
+import okh.Optimizer;
 
 /**
  * 
@@ -128,67 +128,80 @@ public class Main {
 		case 1 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_carf92_stu, dir_carf92_crs, timeslot);
+//			execute(dir_carf92_stu, dir_carf92_crs, timeslot);
+			Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, timeslot, 1000000);
 			break;
 		case 2 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_cars91_stu, dir_cars91_crs, timeslot);
+//			execute(dir_cars91_stu, dir_cars91_crs, timeslot);
+			Optimizer.hillClimbing(dir_cars91_stu, dir_cars91_crs, timeslot, 1000000);
 			break;
 		case 3 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_earf83_stu, dir_earf83_crs, timeslot);
+//			execute(dir_earf83_stu, dir_earf83_crs, timeslot);
+			Optimizer.hillClimbing(dir_earf83_stu, dir_earf83_crs, timeslot, 1000000);
 			break;
 		case 4 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_hecs92_stu, dir_hecs92_crs, timeslot);
+//			execute(dir_hecs92_stu, dir_hecs92_crs, timeslot);
+			Optimizer.hillClimbing(dir_hecs92_stu, dir_hecs92_crs, timeslot, 1000000);
 			break;
 		case 5 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_kfus93_stu, dir_kfus93_crs, timeslot);
+//			execute(dir_kfus93_stu, dir_kfus93_crs, timeslot);
+			Optimizer.hillClimbing(dir_kfus93_stu, dir_kfus93_crs, timeslot, 1000000);
 			break;
 		case 6 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_lsef91_stu, dir_lsef91_crs, timeslot);
+//			execute(dir_lsef91_stu, dir_lsef91_crs, timeslot);
+			Optimizer.hillClimbing(dir_lsef91_stu, dir_lsef91_crs, timeslot, 1000000);
 			break;
 		case 7 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_purs93_stu, dir_purs93_crs, timeslot);
+//			execute(dir_purs93_stu, dir_purs93_crs, timeslot);
+			Optimizer.hillClimbing(dir_purs93_stu, dir_purs93_crs, timeslot, 1000000);
 			break;
 		case 8 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_ryes93_stu, dir_ryes93_crs, timeslot);
+//			execute(dir_ryes93_stu, dir_ryes93_crs, timeslot);
+			Optimizer.hillClimbing(dir_ryes93_stu, dir_ryes93_crs, timeslot, 1000000);
 			break;
 		case 9 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_staf83_stu, dir_staf83_crs, timeslot);
+//			execute(dir_staf83_stu, dir_staf83_crs, timeslot);
+			Optimizer.hillClimbing(dir_staf83_stu, dir_staf83_crs, timeslot, 1000000);
 			break;
 		case 10 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_tres92_stu, dir_tres92_crs, timeslot);
+//			execute(dir_tres92_stu, dir_tres92_crs, timeslot);
+			Optimizer.hillClimbing(dir_tres92_stu, dir_tres92_crs, timeslot, 1000000);
 			break;
 		case 11 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_utas92_stu, dir_utas92_crs, timeslot);
+//			execute(dir_utas92_stu, dir_utas92_crs, timeslot);
+			Optimizer.hillClimbing(dir_utas92_stu, dir_utas92_crs, timeslot, 1000000);
 			break;
 		case 12 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_utes92_stu, dir_utes92_crs, timeslot);
+//			execute(dir_utes92_stu, dir_utes92_crs, timeslot);
+			Optimizer.hillClimbing(dir_utes92_stu, dir_utes92_crs, timeslot, 1000000);
 			break;
 		case 13 :
 			System.out.print("Jumlah Timeslot : ");
 			timeslot = in.nextInt();
-			execute(dir_yorf83_stu, dir_yorf83_crs, timeslot);
+//			execute(dir_yorf83_stu, dir_yorf83_crs, timeslot);
+			Optimizer.hillClimbing(dir_yorf83_stu, dir_yorf83_crs, timeslot, 1000000);
 			break;
 		case 99 :
 			System.out.println("Bye...");

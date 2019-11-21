@@ -94,6 +94,7 @@ public class Optimizer {
 			if (Scheduler.checkRandomTimeslot(randomCourseIndex, randomTimeslot, conflict_matrix, jadwalTemp)) {	
 				jadwalTemp[randomCourseIndex][1] = randomTimeslot;
 				double penalty2 = Utils.getPenalty(conflict_matrix, jadwalTemp, jumlahStudent);
+				
 				if(penalty > penalty2) {
 					penalty = Utils.getPenalty(conflict_matrix, jadwalTemp, jumlahStudent);
 					jadwal[randomCourseIndex][1] = jadwalTemp[randomCourseIndex][1];

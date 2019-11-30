@@ -36,4 +36,29 @@ public class Utils {
 	    Random random = new Random();
 	    return random.nextInt(max - min) + min;
 	}
+	
+	public static int[][] move(int[][] solution, int step) {
+		int[][] temp = solution;
+		
+		
+		
+		return temp;
+	}
+	
+	public static int[][] swap(int[][] solution, int numSwap) {
+		int[][] temp = solution;
+		
+		for(int i=0; i < numSwap; i++) {
+			int exam1 = getRandomNumber(0, solution.length);
+			int exam2 = getRandomNumber(0, solution.length);
+			
+			int timeslot1 = solution[exam1][1];
+			int timeslot2 = solution[exam2][1];
+			
+			temp[exam1][1] = timeslot2;
+			temp[exam2][1] = timeslot1;
+		}
+		
+		return temp;
+	}
 }

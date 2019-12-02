@@ -25,7 +25,7 @@ public class TestTS {
 		String dir_lsef91_crs = DIREKTORI+"lse-f-91.crs";
 		
 		long startTime2 = System.nanoTime();
-		SimulatedAnnealing.run(dir_carf92_stu, dir_carf92_crs, 100, 1000);
+		SimulatedAnnealing.run(dir_lsef91_stu, dir_lsef91_crs, 100, 1000);
 		
 		long endTime2   = System.nanoTime();
 		long totalTime2 = endTime2 - startTime2;

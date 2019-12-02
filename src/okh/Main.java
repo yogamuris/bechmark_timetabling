@@ -130,7 +130,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_carf92_stu, dir_carf92_crs, timeslot);
 			long startTime = System.nanoTime();
-			Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_carf92_stu, dir_carf92_crs, timeslot, 1000);
 			long endTime   = System.nanoTime();
 			long totalTime = endTime - startTime;
 			System.out.println("Total waktu : " + (double)totalTime/1000000000 + " detik");
@@ -140,7 +140,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_cars91_stu, dir_cars91_crs, timeslot);
 			long startTime2 = System.nanoTime();
-			Optimizer.hillClimbing(dir_cars91_stu, dir_cars91_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_cars91_stu, dir_cars91_crs, timeslot, 1000);
 			long endTime2   = System.nanoTime();
 			long totalTime2 = endTime2 - startTime2;
 			System.out.println("Total waktu : " + (double)totalTime2/1000000000 + " detik");
@@ -150,7 +150,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_earf83_stu, dir_earf83_crs, timeslot);
 			long startTime3 = System.nanoTime();
-			Optimizer.hillClimbing(dir_earf83_stu, dir_earf83_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_earf83_stu, dir_earf83_crs, timeslot, 1000);
 			long endTime3   = System.nanoTime();
 			long totalTime3 = endTime3 - startTime3;
 			System.out.println("Total waktu : " + (double)totalTime3/1000000000 + " detik");
@@ -160,7 +160,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_hecs92_stu, dir_hecs92_crs, timeslot);
 			long startTime4 = System.nanoTime();
-			Optimizer.hillClimbing(dir_hecs92_stu, dir_hecs92_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_hecs92_stu, dir_hecs92_crs, timeslot, 1000);
 			long endTime4   = System.nanoTime();
 			long totalTime4 = endTime4 - startTime4;
 			System.out.println("Total waktu : " + (double)totalTime4/1000000000 + " detik");
@@ -170,7 +170,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_kfus93_stu, dir_kfus93_crs, timeslot);
 			long startTime5 = System.nanoTime();
-			Optimizer.hillClimbing(dir_kfus93_stu, dir_kfus93_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_kfus93_stu, dir_kfus93_crs, timeslot, 1000);
 			long endTime5   = System.nanoTime();
 			long totalTime5 = endTime5 - startTime5;
 			System.out.println("Total waktu : " + (double)totalTime5/1000000000 + " detik");
@@ -180,7 +180,7 @@ public class Main {
 			timeslot = in.nextInt();
 //			execute(dir_lsef91_stu, dir_lsef91_crs, timeslot);
 			long startTime6 = System.nanoTime();
-			Optimizer.hillClimbing(dir_lsef91_stu, dir_lsef91_crs, timeslot, 1000000);
+			Optimizer.hillClimbing(dir_lsef91_stu, dir_lsef91_crs, timeslot, 1000);
 			long endTime6   = System.nanoTime();
 			long totalTime6 = endTime6 - startTime6;
 			System.out.println("Total waktu : " + (double)totalTime6/1000000000 + " detik");

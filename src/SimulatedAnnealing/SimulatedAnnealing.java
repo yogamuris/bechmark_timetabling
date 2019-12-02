@@ -6,6 +6,11 @@ import okh.Scheduler;
 import okh.Utils;
 
 public class SimulatedAnnealing {
+	/**
+	 * Pseudocode dari http://www.cleveralgorithms.com/nature-inspired/physical/simulated_annealing.html
+	 */
+	
+	
 	static int[][] solusiTerbaik;
 	
 	public static int[][] run2(int[][] matrix, int jumlahSiswa, int[][] solution, double temperature, int iterasi) {

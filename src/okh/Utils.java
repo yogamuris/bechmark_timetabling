@@ -1,5 +1,6 @@
 package okh;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Utils {
@@ -39,8 +40,16 @@ public class Utils {
 	
 	public static int[][] move(int[][] solution, int step) {
 		int[][] temp = solution;
-		
-		
+		int[] timeslot = new int[temp.length];
+		for(int i = 0; i < temp.length; i++) {
+			timeslot[i] = temp[i][1];
+		}
+		for(int i = 0; i < step; i++) {
+			int randomExam = getRandomNumber(0, solution.length);
+			int randomTimeslot = getRandomNumber(0,  Arrays.stream(timeslot).max().getAsInt());
+			
+			temp[randomExam][1] = randomTimeslot;
+		}
 		
 		return temp;
 	}

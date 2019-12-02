@@ -8,27 +8,28 @@ public class TestTS {
 	public static void main(String[] args) {
 		String dir_carf92_stu = DIREKTORI+"car-f-92.stu";
 		String dir_carf92_crs = DIREKTORI+"car-f-92.crs";
-
-		CourseSet cs = new CourseSet(dir_carf92_crs);
-		ConflictMatrix cm = new ConflictMatrix(dir_carf92_stu, cs.getSize());
 		
-		int [][] conflict_matrix = cm.getLargestDegree();
-		int jumlahStudent = cm.getJumlahStudent();
-		Scheduler scheduler = new Scheduler(cs.getSize());
-		scheduler.timesloting(conflict_matrix, 100);
-		scheduler.printSchedule(cm.getDegree());
-		int[][] jadwal = scheduler.getSchedule();
+		String dir_cars91_stu = DIREKTORI+"car-s-91.stu";
+		String dir_cars91_crs = DIREKTORI+"car-s-91.crs";
 		
-		System.out.println(Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent));
+		String dir_earf83_stu = DIREKTORI+"ear-f-83.stu";
+		String dir_earf83_crs = DIREKTORI+"ear-f-83.crs";
+		
+		String dir_hecs92_stu = DIREKTORI+"hec-s-92.stu";
+		String dir_hecs92_crs = DIREKTORI+"hec-s-92.crs";
+		
+		String dir_kfus93_stu = DIREKTORI+"kfu-s-93.stu";
+		String dir_kfus93_crs = DIREKTORI+"kfu-s-93.crs";
+		
+		String dir_lsef91_stu = DIREKTORI+"lse-f-91.stu";
+		String dir_lsef91_crs = DIREKTORI+"lse-f-91.crs";
 		
 		long startTime2 = System.nanoTime();
-		int[][] bestSolution = SimulatedAnnealing.run(conflict_matrix, jumlahStudent, jadwal, 100, 10000);
+		SimulatedAnnealing.run(dir_carf92_stu, dir_carf92_crs, 100, 1000);
 		
 		long endTime2   = System.nanoTime();
 		long totalTime2 = endTime2 - startTime2;
 		System.out.println("Total waktu : " + (double)totalTime2/1000000000 + " detik");
-		
-		System.out.println(Utils.getPenalty(conflict_matrix, bestSolution, jumlahStudent));
 	
 		
 		

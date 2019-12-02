@@ -20,10 +20,12 @@ public class TestTS {
 		int[][] jadwal = scheduler.getSchedule();
 		
 		System.out.println(Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent));
+//		System.out.println(Utils.getPenalty(conflict_matrix, Utils.move(jadwal.clone(),2), jumlahStudent));
 		
-		int[][] bestSolution = SimulatedAnnealing.run(conflict_matrix, jumlahStudent, jadwal, 300, 10000);
+		int[][] bestSolution = SimulatedAnnealing.run(conflict_matrix, jumlahStudent, jadwal, 100, 10000);
 		
 		System.out.println(Utils.getPenalty(conflict_matrix, bestSolution, jumlahStudent));
-//		System.out.println(Utils.getRandomNumber(1, 6));
+	
+		
 	}
 }

@@ -17,6 +17,17 @@ public class Utils {
 		
 	}
 	
+	public static int[][] copySolution(int[][] arr) {
+		int[][] copySolution = new int[arr.length][2];
+		
+		for(int i = 0; i < arr.length; i++) {
+			copySolution[i][0] = arr[i][0];
+			copySolution[i][1] = arr[i][1];
+		}
+		
+		return copySolution;
+	}
+	
 	public static double getPenalty(int[][] matrix, int[][] jadwal, int jumlah) {
 		double penalty = 0;
 		
@@ -45,8 +56,8 @@ public class Utils {
 			timeslot[i] = temp[i][1];
 		}
 		for(int i = 0; i < step; i++) {
-			int randomExam = getRandomNumber(0, solution.length);
-			int randomTimeslot = getRandomNumber(0,  Arrays.stream(timeslot).max().getAsInt());
+			int randomExam = getRandomNumber(1, solution.length);
+			int randomTimeslot = getRandomNumber(1,  Arrays.stream(timeslot).max().getAsInt());
 			
 			temp[randomExam][1] = randomTimeslot;
 		}

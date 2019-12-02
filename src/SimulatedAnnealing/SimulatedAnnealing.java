@@ -3,53 +3,50 @@ package SimulatedAnnealing;
 import okh.Utils;
 
 public class SimulatedAnnealing {
-	public static int[][] run(int[][] matrix, int jumlahSiswa, int[][] solution, int maxTemperature, int iterasi) {
-		int[][] s = solution;
-		int[][] bestSolution = s;
+	public static int[][] run(int[][] matrix, int jumlahSiswa, int[][] solution, double temperature, int iterasi) {
+		int[][] sCurrent = solution;
+		int[][] sBest = Utils.copySolution(sCurrent);
+		double reductionFactor = 0.001;
+		double tempCurr = temperature;
 		
-		double t = maxTemperature;
-		double minTemperature = 1;
-		int maxIteration = 100;
-		double reductionFactor = 0.05;
-		
-		int randomLLH = Utils.getRandomNumber(1, 6);
-		
-		for(int it = 0; it < iterasi; it++) {
-			while(t > minTemperature) {
-				int i = 0;
-				
-				while(i < maxIteration) {
-//					int[][] s2 = Utils.move(solution, 1);
-					int[][] s2;
-					switch(randomLLH) {
-						case 1: 
-							s2 = Utils.move(solution, 1);
-						case 2: 
-							s2 = Utils.swap(solution, 1);
-						case 3: 
-							s2 = Utils.move(solution, 2);
-						case 4: 
-							s2 = Utils.swap(solution, 3);
-						case 5: 
-							s2 = Utils.move(solution, 3);
-						default: 
-							s2 = Utils.swap(solution, 1);
-					}
-					
-					double delta = Utils.getPenalty(matrix, s2, jumlahSiswa) - Utils.getPenalty(matrix, s, jumlahSiswa);
-					if(delta < 0) {
-						s = s2;
-						if(Utils.getPenalty(matrix, s2, jumlahSiswa) < Utils.getPenalty(matrix, bestSolution, jumlahSiswa))
-							bestSolution = s2;
-					} else if(Math.random() < Math.exp(-delta/t)) {
-						s = s2;
-					}
-					i++;
-				}
-				t = t * (1-reductionFactor);
+		for(int i = 0; i < iterasi; i++) {
+			int randomLLH = Utils.getRandomNumber(1, 5);
+			int[][] sIterasi;
+			
+			switch(randomLLH) {
+				case 1:
+					sIterasi = Utils.move(sCurrent.clone(), 1);
+					break;
+				case 2:
+					sIterasi = Utils.swap(sCurrent.clone(), 1);
+					break;
+				case 3:
+					sIterasi = Utils.move(sCurrent.clone(), 2);
+					break;
+				case 4:
+					sIterasi = Utils.swap(sCurrent.clone(), 3);
+					break;
+				case 5:
+					sIterasi = Utils.move(sCurrent.clone(), 3);
+					break;
+				default:
+					sIterasi = Utils.swap(sCurrent.clone(), 1);
+					break;
 			}
+			
+			tempCurr = tempCurr * (1 - reductionFactor);
+			if(Utils.getPenalty(matrix, sIterasi, jumlahSiswa) <= Utils.getPenalty(matrix, sCurrent, jumlahSiswa)) {
+				sCurrent = Utils.copySolution(sIterasi);
+				if(Utils.getPenalty(matrix, sIterasi, jumlahSiswa) <= Utils.getPenalty(matrix, sBest, jumlahSiswa)) {
+					sBest = Utils.copySolution(sIterasi);
+				}
+			} else if(Math.exp((Utils.getPenalty(matrix, sCurrent, jumlahSiswa) - Utils.getPenalty(matrix, sIterasi, jumlahSiswa))/tempCurr) > Math.random()) {
+				sCurrent = Utils.copySolution(sIterasi);
+			}
+			
+			System.out.println(i+" "+Utils.getPenalty(matrix, sCurrent, jumlahSiswa));
 		}
 			
-		return bestSolution;
+		return sBest;
 	}
 }

@@ -20,12 +20,17 @@ public class TestTS {
 		int[][] jadwal = scheduler.getSchedule();
 		
 		System.out.println(Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent));
-//		System.out.println(Utils.getPenalty(conflict_matrix, Utils.move(jadwal.clone(),2), jumlahStudent));
 		
+		long startTime2 = System.nanoTime();
 		int[][] bestSolution = SimulatedAnnealing.run(conflict_matrix, jumlahStudent, jadwal, 100, 10000);
+		
+		long endTime2   = System.nanoTime();
+		long totalTime2 = endTime2 - startTime2;
+		System.out.println("Total waktu : " + (double)totalTime2/1000000000 + " detik");
 		
 		System.out.println(Utils.getPenalty(conflict_matrix, bestSolution, jumlahStudent));
 	
+		
 		
 	}
 }

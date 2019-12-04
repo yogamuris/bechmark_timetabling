@@ -1,6 +1,6 @@
 package okh;
 
-import SimulatedAnnealing.*;
+import MetaHeuristic.*;
 
 public class TestTS {
 	static final String DIREKTORI = "D:/KULIAH/ITS/Semester 7/Optimasi Kombinatorik dan Heuristik [OKH]/Tugas/Heuristik/Toronto/";

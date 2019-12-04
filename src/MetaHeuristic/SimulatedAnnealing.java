@@ -1,4 +1,4 @@
-package SimulatedAnnealing;
+package MetaHeuristic;
 
 import okh.ConflictMatrix;
 import okh.CourseSet;

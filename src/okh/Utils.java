@@ -45,19 +45,22 @@ public class Utils {
 	}
 	
 	public static int getRandomNumber(int min, int max) {
-	    Random random = new Random();
-	    return random.nextInt(max - min) + min;
+//	    Random random = new Random();
+//	    return random.nextInt((max - min) + 1) + min;
+		return (int)(Math.random() * ((max - min) + 1)) + min;
 	}
 	
 	public static int[][] move(int[][] solution, int step) {
 		int[][] temp = solution;
 		int[] timeslot = new int[temp.length];
+		
 		for(int i = 0; i < temp.length; i++) {
 			timeslot[i] = temp[i][1];
 		}
+		
 		for(int i = 0; i < step; i++) {
-			int randomExam = getRandomNumber(1, solution.length);
-			int randomTimeslot = getRandomNumber(1,  Arrays.stream(timeslot).max().getAsInt());
+			int randomExam = getRandomNumber(1, solution.length-1);
+			int randomTimeslot = getRandomNumber(1,  Arrays.stream(timeslot).max().getAsInt()-1);
 			
 			temp[randomExam][1] = randomTimeslot;
 		}
@@ -69,8 +72,8 @@ public class Utils {
 		int[][] temp = solution;
 		
 		for(int i=0; i < numSwap; i++) {
-			int exam1 = getRandomNumber(0, solution.length);
-			int exam2 = getRandomNumber(0, solution.length);
+			int exam1 = getRandomNumber(0, solution.length-1);
+			int exam2 = getRandomNumber(0, solution.length-1);
 			
 			int timeslot1 = solution[exam1][1];
 			int timeslot2 = solution[exam2][1];

@@ -2,9 +2,15 @@ package okh;
 
 public class Solution {
 	private int[][] solution;
+	private Double penalty;
+	private int jumlahTimeslot = 0;
 	
 	public Solution(int size) {
 		solution = new int[size][2];
+	}
+	
+	public Solution(int[][] solution) {
+		this.solution = solution;
 	}
 	
 	public int[][] getSolution() {
@@ -15,7 +21,24 @@ public class Solution {
 		this.solution = solution;
 	}
 	
-	public int getMaxTimeslot() {
-		return 0;
+	public int getSize() {
+		return this.solution.length;
+	}
+	
+	public void setPenalty(double penalty) {
+		this.penalty = penalty;
+	}
+	
+	public Double getPenalty() {
+		return penalty;
+	}
+	
+	public int getJumlahTimeslot() {
+		for(int i = 0; i < solution.length; i++) {
+			if(solution[i][1] > jumlahTimeslot)
+				jumlahTimeslot = solution[i][1];
+		}
+		
+		return jumlahTimeslot;
 	}
 }

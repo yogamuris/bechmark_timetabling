@@ -8,7 +8,7 @@ import okh.Solution;
 import java.util.ArrayList;
 
 public class GeneticAlgorithm {
-	public ArrayList<Solution> recombination(Solution s1, Solution s2) {
+	private static ArrayList<Solution> recombination(Solution s1, Solution s2) {
 		int[][] sol1 = s1.getSolution();
 		int[][] sol2 = s2.getSolution();
 		
@@ -48,14 +48,14 @@ public class GeneticAlgorithm {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
+		int jumlahStudent = cm.getJumlahStudent();
+		int[][] conflict_matrix = cm.getConflictMatrix();
+		
 		ArrayList<Solution> initPopulation = new ArrayList<Solution>();
-		ArrayList<Double> populationPenalty = new ArrayList<Double>();
 		
 		for(int i = 0; i < 10; i++) {
 			int[][] index = cm.getRandomIndex(cs.getSize());
-			int [][] matrix = cm.getRandomMatrix(index);
-			
-			int jumlahStudent = cm.getJumlahStudent();
+			int [][] matrix = cm.getRandomMatrix(index);			
 			
 			Scheduler scheduler = new Scheduler(cs.getSize());
 			scheduler.timesloting(matrix, 100);
@@ -65,22 +65,27 @@ public class GeneticAlgorithm {
 			Solution s = new Solution(solution);
 			initPopulation.add(s);
 			
-			double penalty = Utils.getPenalty(matrix, solution, jumlahStudent);
+			double penalty = Utils.getPenalty(conflict_matrix, solution, jumlahStudent);
 			s.setPenalty(penalty);
-			populationPenalty.add(penalty);
 		}
 		
 		initPopulation.sort((o1, o2) -> o1.getPenalty().compareTo(o2.getPenalty()));
 		
-		for(int i = 0; i < 10; i++) {
-			System.out.println(initPopulation.get(i).getPenalty());
-		}
+		System.out.println("Best fit solution : \n\t" + initPopulation.get(0).getPenalty() +"\n\t" + initPopulation.get(0).getJumlahTimeslot()); 
+		System.out.println("2nd best fit solution : \n\t" + initPopulation.get(1).getPenalty() +"\n\t" + initPopulation.get(1).getJumlahTimeslot());
 		
-		System.out.println();
+		// Recombination
+		Solution solution1 = initPopulation.get(0);
+		Solution solution2 = initPopulation.get(1);
 		
-		Solution bestSol = initPopulation.get(0);
-		System.out.println(bestSol.getPenalty());
+		ArrayList<Solution> solRecombination = recombination(solution1, solution2);
+		solution1 = solRecombination.get(0);
+		solution2 = solRecombination.get(1);
+		solution1.setPenalty(Utils.getPenalty(conflict_matrix, solution1.getSolution(), jumlahStudent));
+		solution2.setPenalty(Utils.getPenalty(conflict_matrix, solution2.getSolution(), jumlahStudent));
 		
+		System.out.println("Solution 1 : \n\t" + solution1.getPenalty() +"\n\t" + solution1.getJumlahTimeslot()); 
+		System.out.println("Solution 2 : \n\t" + solution2.getPenalty()+"\n\t"  + solution2.getJumlahTimeslot());
 		
 		
 	}

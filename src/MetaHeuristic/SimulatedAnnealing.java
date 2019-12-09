@@ -1,5 +1,7 @@
 package MetaHeuristic;
 
+import java.util.Arrays;
+
 import okh.ConflictMatrix;
 import okh.CourseSet;
 import okh.Scheduler;
@@ -11,7 +13,11 @@ public class SimulatedAnnealing {
 	 */
 	
 	
-	static int[][] solusiTerbaik;
+	private static int[][] solusiTerbaik;
+	
+	public static int[][] getSolusi() {
+		return solusiTerbaik;
+	}
 	
 	public static int[][] run2(int[][] matrix, int jumlahSiswa, int[][] solution, double temperature, int iterasi) {
 		int[][] sCurrent = solution;
@@ -72,8 +78,7 @@ public class SimulatedAnnealing {
 		scheduler.printSchedule(cm.getDegree());
 		int[][] solution = scheduler.getSchedule();
 		
-		
-		int[][] sCurrent = solution;
+		int[][] sCurrent = Utils.copySolution(solution);
 		int[][] sBest = Utils.copySolution(sCurrent);
 		double reductionFactor = 0.001;
 		double tempCurr = temperature;
@@ -84,22 +89,22 @@ public class SimulatedAnnealing {
 			
 			switch(randomLLH) {
 				case 1:
-					sIterasi = Utils.move(sCurrent.clone(), 1);
+					sIterasi = Utils.move(Utils.copySolution(sCurrent), 1);
 					break;
 				case 2:
-					sIterasi = Utils.swap(sCurrent.clone(), 1);
+					sIterasi = Utils.swap(Utils.copySolution(sCurrent), 1);
 					break;
 				case 3:
-					sIterasi = Utils.move(sCurrent.clone(), 2);
+					sIterasi = Utils.move(Utils.copySolution(sCurrent), 2);
 					break;
 				case 4:
-					sIterasi = Utils.swap(sCurrent.clone(), 3);
+					sIterasi = Utils.swap(Utils.copySolution(sCurrent), 3);
 					break;
 				case 5:
-					sIterasi = Utils.move(sCurrent.clone(), 3);
+					sIterasi = Utils.move(Utils.copySolution(sCurrent), 3);
 					break;
 				default:
-					sIterasi = Utils.swap(sCurrent.clone(), 1);
+					sIterasi = Utils.swap(Utils.copySolution(sCurrent), 1);
 					break;
 			}
 			
@@ -116,8 +121,12 @@ public class SimulatedAnnealing {
 			
 			System.out.println(i+" "+Utils.getPenalty(matrix, sCurrent, jumlahSiswa));
 		}
-		
+		System.out.println();
+		System.out.println("Penalty initial solution : " + Utils.getPenalty(matrix, scheduler.getSchedule(), jumlahSiswa));
 		System.out.println("Penalty Terbaik : "+ Utils.getPenalty(matrix, sBest, jumlahSiswa));
+		int[] ts = scheduler.getTimetable();
+		int maxTs = Arrays.stream(ts).max().getAsInt();
+		System.out.println("Jumlah timeslot : " + maxTs);
 		
 		solusiTerbaik = sBest;
 	}

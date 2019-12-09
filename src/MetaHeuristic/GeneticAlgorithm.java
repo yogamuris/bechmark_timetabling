@@ -57,12 +57,14 @@ public class GeneticAlgorithm {
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		
 		for(int i = 0; i < populationSize; i++) {
-			int[][] index = cm.getRandomIndex(cs.getSize());
-			int[][] matrix = cm.getRandomMatrix(index);			
+//			int[][] index = cm.getRandomIndex(cs.getSize());
+//			int[][] matrix = cm.getRandomMatrix(index);	
+			int[][] matrix = cm.getLargestDegree();
 			
 			Scheduler scheduler = new Scheduler(cs.getSize());
 			scheduler.timesloting(matrix, 100);
-			scheduler.printSchedule(index);
+//			scheduler.printSchedule(index);
+			scheduler.printSchedule(cm.getDegree());
 			int[][] solution = scheduler.getSchedule();
 			
 			Solution s = new Solution(solution);
@@ -76,7 +78,7 @@ public class GeneticAlgorithm {
 		return population;
 	}
 	
-	public static void run(String dir_stu, String dir_crs, int populationSize) {
+	public static void run(String dir_stu, String dir_crs, int populationSize, int iterasi) {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
@@ -85,7 +87,7 @@ public class GeneticAlgorithm {
 		
 		ArrayList<Solution> population = generatePopulation(cs, cm, populationSize);
 		
-		int iter = 100;
+		int iter = iterasi;
 		
 		Solution bestSolution = new Solution(cs.getSize());
 		bestSolution.setPenalty(Integer.MAX_VALUE);

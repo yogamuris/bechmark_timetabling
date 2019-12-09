@@ -27,6 +27,11 @@ public class TestTS {
 		long startTime2 = System.nanoTime();
 		SimulatedAnnealing.run(dir_hecs92_stu, dir_hecs92_crs, 100, 3500);
 		
+		int [][] solusi = SimulatedAnnealing.getSolusi();
+		for(int i = 0; i < solusi.length; i++) {
+			System.out.println(solusi[i][0]+" "+solusi[i][1]);
+		}
+		
 		long endTime2   = System.nanoTime();
 		long totalTime2 = endTime2 - startTime2;
 		System.out.println("Total waktu : " + (double)totalTime2/1000000000 + " detik");

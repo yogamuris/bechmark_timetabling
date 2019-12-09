@@ -17,7 +17,7 @@ public class Optimizer {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
-		int [][] copyGraph = Utils.copyArray(cm.getMatrix());
+		int [][] copyGraph = Utils.copyArray(cm.getConflictMatrix());
 		int [][] graph = cm.getRandomMatrix();
 		
 		int jumlahTimeslot = timeslot;
@@ -36,7 +36,7 @@ public class Optimizer {
 			CourseSet csIter = new CourseSet(dir_crs);
 			ConflictMatrix cmIter = new ConflictMatrix(dir_stu, cs.getSize());
 			
-			int [][] copyGraphIter = Utils.copyArray(cmIter.getMatrix());
+			int [][] copyGraphIter = Utils.copyArray(cmIter.getConflictMatrix());
 			int [][] graphIter = cm.getRandomMatrix();
 			
 			Scheduler schedulerIter = new Scheduler(csIter.getSize());

@@ -2,14 +2,21 @@ package okh;
 
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Scheduler {
 	private int size; 
-    private int[] timeslot;
+    
     private boolean adaSolusi;
     private int[][] schedule;
     private String solusi = "";
-  
+    
+    private int jumlahTimeslot;
+    private int[] timeslot;
+//    private ArrayList<Integer> timeslot;
+    private int[] timetable;
+    
+    
     public Scheduler() {
     	this.size = 0;
     }
@@ -17,6 +24,14 @@ public class Scheduler {
     public Scheduler(int size) {
     	this.size = size;
     }
+    
+    public void setJumlahTimeslot(int jumlahTimeslot) {
+    	this.jumlahTimeslot = jumlahTimeslot;
+    }
+    
+    public int getJumlahTimeslot() {
+    	return this.jumlahTimeslot;
+    } 
     
     public int[][] getSchedule() {
     	return this.schedule;
@@ -26,8 +41,8 @@ public class Scheduler {
     	return this.solusi;
     }
     
-    public int[] getTimeslot() {
-    	return this.timeslot;
+    public int[] getTimetable() {
+    	return this.timetable;
     }
     
     public int getSize() {
@@ -45,6 +60,17 @@ public class Scheduler {
     private void setAdaSolusi(boolean status) {
     	this.adaSolusi = status;
     }
+    
+//    public void initTimeslot(int size) {
+//    	timeslot = new int[size];
+//    	
+//    	int ts = 1;
+//    	
+//    	for(int i = 0; i < timeslot.length; i++) {
+//    		timeslot[i] = ts;
+//    		ts++;
+//    	}
+//    }
     
     private boolean checkTimeslot(int course, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
@@ -79,11 +105,11 @@ public class Scheduler {
     } 
   
     public void timesloting(int[][] matrix, int jumlah_timeslot) { 
-        timeslot = new int[size]; 
+        timetable = new int[size]; 
         for (int i = 0; i < size; i++) 
-            timeslot[i] = 0; 
+            timetable[i] = 0; 
   
-        if (isTersedia(matrix, jumlah_timeslot, timeslot, 0))
+        if (isTersedia(matrix, jumlah_timeslot, timetable, 0))
             setAdaSolusi(true); 
         else
         	setAdaSolusi(false); 
@@ -93,9 +119,9 @@ public class Scheduler {
     	if (!adaSolusi)
     		System.out.println("Tidak ada solusi");
     	else {
-    		System.out.println("Jumlah Timeslot : " + Arrays.stream(timeslot).max().getAsInt());
+    		System.out.println("Jumlah Timeslot : " + Arrays.stream(timetable).max().getAsInt());
     		for (int i = 0; i < size; i++) {
-                System.out.println(+ (i+1) +" " + timeslot[i]); 
+                System.out.println(+ (i+1) +" " + timetable[i]); 
                 
     		}
             System.out.println(); 
@@ -108,15 +134,13 @@ public class Scheduler {
     	else {
     		schedule = new int[size][2];
     		for (int i = 0; i < size; i++) {
-//                System.out.println(+ (degree[i][0]) +" " + (timeslot[i])); 
-                solusi += degree[i][0] + " " + timeslot[i] +"\n";
+                solusi += degree[i][0] + " " + timetable[i] +"\n";
                 schedule[i][0] = degree[i][0];
-                schedule[i][1] = timeslot[i];
+                schedule[i][1] = timetable[i];
     		}
-//            System.out.println();
-//            System.out.println("Jumlah Timeslot minimum : " + Arrays.stream(timeslot).max().getAsInt());
     	}
     }
+  
     
     public void exportSchedule(String filename) {
     	try{    
@@ -125,9 +149,8 @@ public class Scheduler {
             fw.close();    
         } catch(Exception e){
         	System.out.println(e);
-        }    
-//            System.out.println("File "+filename+" berhasil disimpan bos");    
-       }
+        }     
+    }
     
     
 }

@@ -84,7 +84,7 @@ public class GeneticAlgorithm {
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
 		int jumlahStudent = cm.getJumlahStudent();
-		int[][] conflict_matrix = cm.getConflictMatrix();
+		int[][] conflictMatrix = cm.getConflictMatrix();
 		
 		ArrayList<Solution> population = generatePopulation(cs, cm, populationSize);
 		
@@ -93,7 +93,7 @@ public class GeneticAlgorithm {
 		Solution bestSolution = new Solution(cs.getSize());
 		
 		bestSolution.setSolution(Utils.copySolution(population.get(0).getSolution()));
-		bestSolution.setPenalty(Utils.getPenalty(conflict_matrix, bestSolution.getSolution(), jumlahStudent));
+		bestSolution.setPenalty(Utils.getPenalty(conflictMatrix, bestSolution.getSolution(), jumlahStudent));
 		
 		while(iter < iterasi) {
 			population.sort((o1, o2) -> o1.getPenalty().compareTo(o2.getPenalty()));
@@ -106,13 +106,13 @@ public class GeneticAlgorithm {
 			solution1 = solRecombination.get(0);
 			solution2 = solRecombination.get(1);
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution1.getSolution()))
-				solution1.setPenalty(Utils.getPenalty(conflict_matrix, solution1.getSolution(), jumlahStudent));
+			if(Utils.isNotTabrakan(conflictMatrix, solution1.getSolution()))
+				solution1.setPenalty(Utils.getPenalty(conflictMatrix, solution1.getSolution(), jumlahStudent));
 			else
 				solution1.setPenalty(1000);
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution2.getSolution()))
-				solution2.setPenalty(Utils.getPenalty(conflict_matrix, solution2.getSolution(), jumlahStudent));
+			if(Utils.isNotTabrakan(conflictMatrix, solution2.getSolution()))
+				solution2.setPenalty(Utils.getPenalty(conflictMatrix, solution2.getSolution(), jumlahStudent));
 			else
 				solution2.setPenalty(1000);
 						
@@ -120,25 +120,25 @@ public class GeneticAlgorithm {
 			solution1 = mutation(solution1);
 			solution2 = mutation(solution2);
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution1.getSolution()))
-				solution1.setPenalty(Utils.getPenalty(conflict_matrix, solution1.getSolution(), jumlahStudent));
+			if(Utils.isNotTabrakan(conflictMatrix, solution1.getSolution()))
+				solution1.setPenalty(Utils.getPenalty(conflictMatrix, solution1.getSolution(), jumlahStudent));
 			else
 				solution1.setPenalty(1000);
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution2.getSolution()))
-				solution2.setPenalty(Utils.getPenalty(conflict_matrix, solution2.getSolution(), jumlahStudent));
+			if(Utils.isNotTabrakan(conflictMatrix, solution2.getSolution()))
+				solution2.setPenalty(Utils.getPenalty(conflictMatrix, solution2.getSolution(), jumlahStudent));
 			else
 				solution2.setPenalty(1000);
 			
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution1.getSolution()) && Utils.isNotTabrakan(conflict_matrix, solution2.getSolution())) {
+			if(Utils.isNotTabrakan(conflictMatrix, solution1.getSolution()) && Utils.isNotTabrakan(conflictMatrix, solution2.getSolution())) {
 				if(solution1.getPenalty() < solution2.getPenalty() && solution1.getPenalty() < bestSolution.getPenalty())
 					bestSolution = solution1;
 				else if(solution2.getPenalty() < solution1.getPenalty() && solution2.getPenalty() < bestSolution.getPenalty())
 					bestSolution = solution2;
 			}
 			
-			if(Utils.isNotTabrakan(conflict_matrix, solution1.getSolution()) && Utils.isNotTabrakan(conflict_matrix, solution2.getSolution())) {
+			if(Utils.isNotTabrakan(conflictMatrix, solution1.getSolution()) && Utils.isNotTabrakan(conflictMatrix, solution2.getSolution())) {
 				if((iter+1) % 10 == 0) {
 					if(solution1.getPenalty() < solution2.getPenalty())
 						System.out.println("Iterasi ke-" + (iter+1) + " " + solution1.getPenalty());

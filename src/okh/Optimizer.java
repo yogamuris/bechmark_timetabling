@@ -60,16 +60,20 @@ public class Optimizer {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 		
-		int [][] conflict_matrix = cm.getLargestDegree();
-		int jumlahTimeslot = timeslot;
+//		int [][] confMat = cm.getConflictMatrix();
 		
-		Scheduler scheduler = new Scheduler(cs.getSize());
-		scheduler.timesloting(conflict_matrix, jumlahTimeslot);
-		scheduler.printSchedule(cm.getDegree());
+				
+		int [][] conflict_matrix = cm.getConflictMatrix();
+		int[][] jadwal = Scheduler.getSaturationSchedule(cs.getSize(), cm.getDegree(), conflict_matrix);
+//		int jumlahTimeslot = timeslot;
+		
+//		Scheduler scheduler = new Scheduler(cs.getSize());
+//		scheduler.timesloting(conflict_matrix, jumlahTimeslot);
+//		scheduler.printSchedule(cm.getDegree());
 		
 		int jumlahStudent = cm.getJumlahStudent();
 		
-		int[][] jadwal = scheduler.getSchedule();
+//		int[][] jadwal = scheduler.getSchedule();
 		int[][] jadwalTemp = new int[jadwal.length][2];
 		
 		for(int i = 0; i < jadwalTemp.length; i++) {
@@ -78,16 +82,10 @@ public class Optimizer {
 		}
 		
 		double penalty = Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent);
-		System.out.println(penalty);
-		
-		int max_timeslot = 0;
-		
-		for(int i = 0; i<jadwal.length; i++) {
-			if(jadwal[i][1] > max_timeslot)
-				max_timeslot = jadwal[i][1];
-		}		
+		System.out.println(penalty);	
 		
 		Solution bestSolution = new Solution(jadwal);
+		int max_timeslot = bestSolution.getJumlahTimeslot();
 		
 		for(int i = 0; i < iterasi; i++) {			
 			int randomCourseIndex = Utils.getRandomNumber(0, conflict_matrix.length-1);

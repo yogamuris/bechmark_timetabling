@@ -11,9 +11,13 @@ public class SimulatedAnnealing {
 	 * Pseudocode dari http://www.cleveralgorithms.com/nature-inspired/physical/simulated_annealing.html
 	 */
 	
-	private static int[][] solusiTerbaik;
+	private static Solution solusiTerbaik;
 	
-	public static int[][] getSolusi() {
+	private static void setSolution(Solution solusi) {
+		solusiTerbaik = solusi;
+	}
+	
+	public static Solution getSolusi() {
 		return solusiTerbaik;
 	}
 	
@@ -84,12 +88,12 @@ public class SimulatedAnnealing {
 		System.out.println("Penalty initial solution : " + Utils.getPenalty(confMat, Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat), jumlahSiswa));
 		System.out.println("Penalty Terbaik : "+ bestSolution.getPenalty());
 		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
-		int[][] bbest = bestSolution.getSolution();
+//		int[][] bbest = bestSolution.getSolution();
 //		
-		for(int i = 0; i < bbest.length; i++) {
-			System.out.println(bbest[i][0] + " " + bbest[i][1]);
-		}
+//		for(int i = 0; i < bbest.length; i++) {
+//			System.out.println(bbest[i][0] + " " + bbest[i][1]);
+//		}
 		
-		solusiTerbaik = sBest;
+		setSolution(bestSolution);
 	}
 }

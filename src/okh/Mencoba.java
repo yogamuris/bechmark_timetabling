@@ -67,7 +67,7 @@ public class Mencoba {
 //		}
 		
 //		System.out.println(Utils.getPenalty(cm.getConflictMatrix(), solution, jumlahSiswa));
-		SimulatedAnnealing.run(dir_carf92_stu, dir_carf92_crs, 100, 1000);
+		SimulatedAnnealing.run(dir_utes92_stu, dir_utes92_crs, 100, 2000000);
 //		GeneticAlgorithm.run(dir_carf92_stu, dir_carf92_crs, 10, 100);
 //		CourseSet cs = new CourseSet(dir_crs);
 //		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());

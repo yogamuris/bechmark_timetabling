@@ -12,10 +12,7 @@ public class Scheduler {
     private String solusi = "";
     
     private int jumlahTimeslot;
-//    private int[] timeslot;
-//    private ArrayList<Integer> timeslot;
     private int[] timetable;
-    
     
     public Scheduler() {
     	this.size = 0;
@@ -60,17 +57,6 @@ public class Scheduler {
     private void setAdaSolusi(boolean status) {
     	this.adaSolusi = status;
     }
-    
-//    public void initTimeslot(int size) {
-//    	timeslot = new int[size];
-//    	
-//    	int ts = 1;
-//    	
-//    	for(int i = 0; i < timeslot.length; i++) {
-//    		timeslot[i] = ts;
-//    		ts++;
-//    	}
-//    } 
     
     private boolean checkTimeslot(int course, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
@@ -126,6 +112,13 @@ public class Scheduler {
 		}
 		return index;
 	}
+    
+    private static boolean isFeasible(int exam, int timeslotKe, int[][]conflictMatrix, int [][]timeslot, int[][]largest) {
+		for(int i=0; i<conflictMatrix.length; i++)
+			if(conflictMatrix[exam][i]!=0 && timeslot[i][1]==timeslotKe)
+				return false;
+		return true;
+	}
 	
 	public static int[][] getSaturationSchedule(int size, int[][] largestDegree, int[][] matrix) {
 		int[][] schedule = new int[size][2];
@@ -142,13 +135,11 @@ public class Scheduler {
 		for(int i=0; i<size; i++) {
             int index = calculateSaturation(saturation, size);
             for (int j=0; j<=timeslot; j++) {
-                if(isOk(saturation[index][0]-1, j, matrix, schedule, saturation)) {
+                if(isFeasible(saturation[index][0]-1, j, matrix, schedule, saturation)) {
                     schedule[saturation[index][0]-1][1] = j;
                     saturation[index][1] = 100000;
-                    int ind = 0;
                     for(int k=0; k<matrix.length; k++) {
                         if(matrix[saturation[index][0]-1][k]!=0) {
-                            ind = k;
                             for(int l=0; l<saturation.length; l++) {
                                 if(saturation[l][0]==k+1) {
                                     saturation[l][1] = saturation[l][1]-1;
@@ -164,13 +155,6 @@ public class Scheduler {
             }
 		}
 		return schedule;
-	}
-		
-	private static boolean isOk(int ex, int jad, int[][]cm, int [][]timeslot, int[][]largest) {
-		for(int i=0; i<cm.length; i++)
-			if(cm[ex][i]!=0 && timeslot[i][1]==jad)
-				return false;
-		return true;
 	}
     
     public void printSchedule() { 

@@ -50,6 +50,25 @@ public class Mencoba {
 		String dir_yorf83_stu = DIREKTORI+"yor-f-83.stu";
 		String dir_yorf83_crs = DIREKTORI+"yor-f-83.crs";
 		
+		CourseSet cs = new CourseSet(dir_carf92_crs);
+		ConflictMatrix cm = new ConflictMatrix(dir_carf92_stu, cs.getSize());
+		
+		int [][] matrix = cm.getLargestDegree();
+		int [][] confMat = cm.getConflictMatrix();
+		int jumlahSiswa = cm.getJumlahStudent();
+		Scheduler scheduler = new Scheduler(cs.getSize());
+		scheduler.timesloting(matrix, 100);
+		scheduler.printSchedule(cm.getDegree());
+		int[][] solution3 = scheduler.getSchedule();
+		int[][] solution = Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat);
+		
+//		for(int i = 0; i < solution.length; i++) {
+//			System.out.println(solution[i][0] + " " + solution[i][1]);
+//		}
+		
+//		System.out.println(Utils.getPenalty(cm.getConflictMatrix(), solution, jumlahSiswa));
+		SimulatedAnnealing.run(dir_carf92_stu, dir_carf92_crs, 100, 1000);
+//		GeneticAlgorithm.run(dir_carf92_stu, dir_carf92_crs, 10, 100);
 //		CourseSet cs = new CourseSet(dir_crs);
 //		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
 //		
@@ -65,259 +84,259 @@ public class Mencoba {
 //		System.out.println(Utils.isNotTabrakan(conflict_matrix, jadwal));
 //		System.out.println(Utils.getPenalty(conflict_matrix, jadwal, cm.getJumlahStudent()));
 		
-		System.out.println("1. Hill Climbing");
-		System.out.println("2. Simulated Annealing");
-		System.out.println("3. Genetic Algorithm");
-		
-		
-		Scanner input = new Scanner(System.in);
-		int heuristik = input.nextInt();
-		
-		switch(heuristik) {
-		case 1 :
-			System.out.println("1. Car-f-92");
-			System.out.println("2. Car-s-91");
-			System.out.println("3. Ear-f-83");
-			System.out.println("4. Hec-s-92");
-			System.out.println("5. Kfu-s-93");
-			System.out.println("6. Lse-f-91");
-			System.out.println("7. Pur-s-93");
-			System.out.println("8. Rye-s-93");
-			System.out.println("9. Sta-f-83");
-			System.out.println("10. Tre-s-92");
-			System.out.println("11. Uta-s-92");
-			System.out.println("12. Ute-s-92");
-			System.out.println("13. yor-f-83");
-			System.out.println("99. EXIT");
-			System.out.print("Pilih dataset : \n");
-			int dat = input.nextInt();
-			switch(dat) {
-			case 1:
-				dir_stu = dir_carf92_stu;
-				dir_crs = dir_carf92_crs;
-				break;
-			case 2:
-				dir_stu = dir_cars91_stu;
-				dir_crs = dir_cars91_crs;
-				break;
-			case 3:
-				dir_stu = dir_earf83_stu;
-				dir_crs = dir_earf83_crs;
-				break;
-			case 4:
-				dir_stu = dir_hecs92_stu;
-				dir_crs = dir_hecs92_crs;
-				break;
-			case 5:
-				dir_stu = dir_kfus93_stu;
-				dir_crs = dir_kfus93_crs;
-				break;
-			case 6:
-				dir_stu = dir_lsef91_stu;
-				dir_crs = dir_lsef91_crs;
-				break;
-			case 7:
-				dir_stu = dir_purs93_stu;
-				dir_crs = dir_purs93_crs;
-				break;
-			case 8:
-				dir_stu = dir_ryes93_stu;
-				dir_crs = dir_ryes93_crs;
-				break;
-			case 9:
-				dir_stu = dir_staf83_stu;
-				dir_crs = dir_staf83_crs;
-				break;
-			case 10:
-				dir_stu = dir_tres92_stu;
-				dir_crs = dir_tres92_crs;
-				break;
-			case 11:
-				dir_stu = dir_utas92_stu;
-				dir_crs = dir_utas92_crs;
-				break;
-			case 12:
-				dir_stu = dir_utes92_stu;
-				dir_crs = dir_utes92_crs;
-				break;
-			case 13:
-				dir_stu = dir_yorf83_stu;
-				dir_crs = dir_yorf83_crs;
-				break;
-			case 99:
-				System.exit(0);
-			}
-			
-			long startTime = System.nanoTime();
-			Optimizer.hillClimbing(dir_stu, dir_crs, 100, 1000);
-			long endTime   = System.nanoTime();
-			long totalTime = endTime - startTime;
-			System.out.println((double)totalTime/1000000000 + " detik");
-			
-			break;
-		case 2 :
-			System.out.println("1. Car-f-92");
-			System.out.println("2. Car-s-91");
-			System.out.println("3. Ear-f-83");
-			System.out.println("4. Hec-s-92");
-			System.out.println("5. Kfu-s-93");
-			System.out.println("6. Lse-f-91");
-			System.out.println("7. Pur-s-93");
-			System.out.println("8. Rye-s-93");
-			System.out.println("9. Sta-f-83");
-			System.out.println("10. Tre-s-92");
-			System.out.println("11. Uta-s-92");
-			System.out.println("12. Ute-s-92");
-			System.out.println("13. yor-f-83");
-			System.out.println("99. EXIT");
-			System.out.print("Pilih dataset : \n");
-			int dat2 = input.nextInt();
-			switch(dat2) {
-			case 1:
-				dir_stu = dir_carf92_stu;
-				dir_crs = dir_carf92_crs;
-				break;
-			case 2:
-				dir_stu = dir_cars91_stu;
-				dir_crs = dir_cars91_crs;
-				break;
-			case 3:
-				dir_stu = dir_earf83_stu;
-				dir_crs = dir_earf83_crs;
-				break;
-			case 4:
-				dir_stu = dir_hecs92_stu;
-				dir_crs = dir_hecs92_crs;
-				break;
-			case 5:
-				dir_stu = dir_kfus93_stu;
-				dir_crs = dir_kfus93_crs;
-				break;
-			case 6:
-				dir_stu = dir_lsef91_stu;
-				dir_crs = dir_lsef91_crs;
-				break;
-			case 7:
-				dir_stu = dir_purs93_stu;
-				dir_crs = dir_purs93_crs;
-				break;
-			case 8:
-				dir_stu = dir_ryes93_stu;
-				dir_crs = dir_ryes93_crs;
-				break;
-			case 9:
-				dir_stu = dir_staf83_stu;
-				dir_crs = dir_staf83_crs;
-				break;
-			case 10:
-				dir_stu = dir_tres92_stu;
-				dir_crs = dir_tres92_crs;
-				break;
-			case 11:
-				dir_stu = dir_utas92_stu;
-				dir_crs = dir_utas92_crs;
-				break;
-			case 12:
-				dir_stu = dir_utes92_stu;
-				dir_crs = dir_utes92_crs;
-				break;
-			case 13:
-				dir_stu = dir_yorf83_stu;
-				dir_crs = dir_yorf83_crs;
-				break;
-			case 99:
-				System.exit(0);
-			}
-			long startTime2 = System.nanoTime();
-			SimulatedAnnealing.run(dir_stu, dir_crs, 100, 1000);
-			long endTime2   = System.nanoTime();
-			long totalTime2 = endTime2 - startTime2;
-			System.out.println((double)totalTime2/1000000000 + " detik");
-			break;
-		case 3 :
-			System.out.println("1. Car-f-92");
-			System.out.println("2. Car-s-91");
-			System.out.println("3. Ear-f-83");
-			System.out.println("4. Hec-s-92");
-			System.out.println("5. Kfu-s-93");
-			System.out.println("6. Lse-f-91");
-			System.out.println("7. Pur-s-93");
-			System.out.println("8. Rye-s-93");
-			System.out.println("9. Sta-f-83");
-			System.out.println("10. Tre-s-92");
-			System.out.println("11. Uta-s-92");
-			System.out.println("12. Ute-s-92");
-			System.out.println("13. yor-f-83");
-			System.out.println("99. EXIT");
-			System.out.print("Pilih dataset : \n");
-			int dat3 = input.nextInt();
-			switch(dat3) {
-			case 1:
-				dir_stu = dir_carf92_stu;
-				dir_crs = dir_carf92_crs;
-				break;
-			case 2:
-				dir_stu = dir_cars91_stu;
-				dir_crs = dir_cars91_crs;
-				break;
-			case 3:
-				dir_stu = dir_earf83_stu;
-				dir_crs = dir_earf83_crs;
-				break;
-			case 4:
-				dir_stu = dir_hecs92_stu;
-				dir_crs = dir_hecs92_crs;
-				break;
-			case 5:
-				dir_stu = dir_kfus93_stu;
-				dir_crs = dir_kfus93_crs;
-				break;
-			case 6:
-				dir_stu = dir_lsef91_stu;
-				dir_crs = dir_lsef91_crs;
-				break;
-			case 7:
-				dir_stu = dir_purs93_stu;
-				dir_crs = dir_purs93_crs;
-				break;
-			case 8:
-				dir_stu = dir_ryes93_stu;
-				dir_crs = dir_ryes93_crs;
-				break;
-			case 9:
-				dir_stu = dir_staf83_stu;
-				dir_crs = dir_staf83_crs;
-				break;
-			case 10:
-				dir_stu = dir_tres92_stu;
-				dir_crs = dir_tres92_crs;
-				break;
-			case 11:
-				dir_stu = dir_utas92_stu;
-				dir_crs = dir_utas92_crs;
-				break;
-			case 12:
-				dir_stu = dir_utes92_stu;
-				dir_crs = dir_utes92_crs;
-				break;
-			case 13:
-				dir_stu = dir_yorf83_stu;
-				dir_crs = dir_yorf83_crs;
-				break;
-			case 99:
-				System.exit(0);
-			}
-			long startTime3 = System.nanoTime();
-			GeneticAlgorithm.run(dir_stu, dir_crs, 10, 1000);
-			long endTime3   = System.nanoTime();
-			long totalTime3 = endTime3 - startTime3;
-			System.out.println((double)totalTime3/1000000000 + " detik");
-			
-			
-			break;
-		}
-		
-		input.close();
+//		System.out.println("1. Hill Climbing");
+//		System.out.println("2. Simulated Annealing");
+//		System.out.println("3. Genetic Algorithm");
+//		
+//		
+//		Scanner input = new Scanner(System.in);
+//		int heuristik = input.nextInt();
+//		
+//		switch(heuristik) {
+//		case 1 :
+//			System.out.println("1. Car-f-92");
+//			System.out.println("2. Car-s-91");
+//			System.out.println("3. Ear-f-83");
+//			System.out.println("4. Hec-s-92");
+//			System.out.println("5. Kfu-s-93");
+//			System.out.println("6. Lse-f-91");
+//			System.out.println("7. Pur-s-93");
+//			System.out.println("8. Rye-s-93");
+//			System.out.println("9. Sta-f-83");
+//			System.out.println("10. Tre-s-92");
+//			System.out.println("11. Uta-s-92");
+//			System.out.println("12. Ute-s-92");
+//			System.out.println("13. yor-f-83");
+//			System.out.println("99. EXIT");
+//			System.out.print("Pilih dataset : \n");
+//			int dat = input.nextInt();
+//			switch(dat) {
+//			case 1:
+//				dir_stu = dir_carf92_stu;
+//				dir_crs = dir_carf92_crs;
+//				break;
+//			case 2:
+//				dir_stu = dir_cars91_stu;
+//				dir_crs = dir_cars91_crs;
+//				break;
+//			case 3:
+//				dir_stu = dir_earf83_stu;
+//				dir_crs = dir_earf83_crs;
+//				break;
+//			case 4:
+//				dir_stu = dir_hecs92_stu;
+//				dir_crs = dir_hecs92_crs;
+//				break;
+//			case 5:
+//				dir_stu = dir_kfus93_stu;
+//				dir_crs = dir_kfus93_crs;
+//				break;
+//			case 6:
+//				dir_stu = dir_lsef91_stu;
+//				dir_crs = dir_lsef91_crs;
+//				break;
+//			case 7:
+//				dir_stu = dir_purs93_stu;
+//				dir_crs = dir_purs93_crs;
+//				break;
+//			case 8:
+//				dir_stu = dir_ryes93_stu;
+//				dir_crs = dir_ryes93_crs;
+//				break;
+//			case 9:
+//				dir_stu = dir_staf83_stu;
+//				dir_crs = dir_staf83_crs;
+//				break;
+//			case 10:
+//				dir_stu = dir_tres92_stu;
+//				dir_crs = dir_tres92_crs;
+//				break;
+//			case 11:
+//				dir_stu = dir_utas92_stu;
+//				dir_crs = dir_utas92_crs;
+//				break;
+//			case 12:
+//				dir_stu = dir_utes92_stu;
+//				dir_crs = dir_utes92_crs;
+//				break;
+//			case 13:
+//				dir_stu = dir_yorf83_stu;
+//				dir_crs = dir_yorf83_crs;
+//				break;
+//			case 99:
+//				System.exit(0);
+//			}
+//			
+//			long startTime = System.nanoTime();
+//			Optimizer.hillClimbing(dir_stu, dir_crs, 100, 1000);
+//			long endTime   = System.nanoTime();
+//			long totalTime = endTime - startTime;
+//			System.out.println((double)totalTime/1000000000 + " detik");
+//			
+//			break;
+//		case 2 :
+//			System.out.println("1. Car-f-92");
+//			System.out.println("2. Car-s-91");
+//			System.out.println("3. Ear-f-83");
+//			System.out.println("4. Hec-s-92");
+//			System.out.println("5. Kfu-s-93");
+//			System.out.println("6. Lse-f-91");
+//			System.out.println("7. Pur-s-93");
+//			System.out.println("8. Rye-s-93");
+//			System.out.println("9. Sta-f-83");
+//			System.out.println("10. Tre-s-92");
+//			System.out.println("11. Uta-s-92");
+//			System.out.println("12. Ute-s-92");
+//			System.out.println("13. yor-f-83");
+//			System.out.println("99. EXIT");
+//			System.out.print("Pilih dataset : \n");
+//			int dat2 = input.nextInt();
+//			switch(dat2) {
+//			case 1:
+//				dir_stu = dir_carf92_stu;
+//				dir_crs = dir_carf92_crs;
+//				break;
+//			case 2:
+//				dir_stu = dir_cars91_stu;
+//				dir_crs = dir_cars91_crs;
+//				break;
+//			case 3:
+//				dir_stu = dir_earf83_stu;
+//				dir_crs = dir_earf83_crs;
+//				break;
+//			case 4:
+//				dir_stu = dir_hecs92_stu;
+//				dir_crs = dir_hecs92_crs;
+//				break;
+//			case 5:
+//				dir_stu = dir_kfus93_stu;
+//				dir_crs = dir_kfus93_crs;
+//				break;
+//			case 6:
+//				dir_stu = dir_lsef91_stu;
+//				dir_crs = dir_lsef91_crs;
+//				break;
+//			case 7:
+//				dir_stu = dir_purs93_stu;
+//				dir_crs = dir_purs93_crs;
+//				break;
+//			case 8:
+//				dir_stu = dir_ryes93_stu;
+//				dir_crs = dir_ryes93_crs;
+//				break;
+//			case 9:
+//				dir_stu = dir_staf83_stu;
+//				dir_crs = dir_staf83_crs;
+//				break;
+//			case 10:
+//				dir_stu = dir_tres92_stu;
+//				dir_crs = dir_tres92_crs;
+//				break;
+//			case 11:
+//				dir_stu = dir_utas92_stu;
+//				dir_crs = dir_utas92_crs;
+//				break;
+//			case 12:
+//				dir_stu = dir_utes92_stu;
+//				dir_crs = dir_utes92_crs;
+//				break;
+//			case 13:
+//				dir_stu = dir_yorf83_stu;
+//				dir_crs = dir_yorf83_crs;
+//				break;
+//			case 99:
+//				System.exit(0);
+//			}
+//			long startTime2 = System.nanoTime();
+//			SimulatedAnnealing.run(dir_stu, dir_crs, 100, 1000);
+//			long endTime2   = System.nanoTime();
+//			long totalTime2 = endTime2 - startTime2;
+//			System.out.println((double)totalTime2/1000000000 + " detik");
+//			break;
+//		case 3 :
+//			System.out.println("1. Car-f-92");
+//			System.out.println("2. Car-s-91");
+//			System.out.println("3. Ear-f-83");
+//			System.out.println("4. Hec-s-92");
+//			System.out.println("5. Kfu-s-93");
+//			System.out.println("6. Lse-f-91");
+//			System.out.println("7. Pur-s-93");
+//			System.out.println("8. Rye-s-93");
+//			System.out.println("9. Sta-f-83");
+//			System.out.println("10. Tre-s-92");
+//			System.out.println("11. Uta-s-92");
+//			System.out.println("12. Ute-s-92");
+//			System.out.println("13. yor-f-83");
+//			System.out.println("99. EXIT");
+//			System.out.print("Pilih dataset : \n");
+//			int dat3 = input.nextInt();
+//			switch(dat3) {
+//			case 1:
+//				dir_stu = dir_carf92_stu;
+//				dir_crs = dir_carf92_crs;
+//				break;
+//			case 2:
+//				dir_stu = dir_cars91_stu;
+//				dir_crs = dir_cars91_crs;
+//				break;
+//			case 3:
+//				dir_stu = dir_earf83_stu;
+//				dir_crs = dir_earf83_crs;
+//				break;
+//			case 4:
+//				dir_stu = dir_hecs92_stu;
+//				dir_crs = dir_hecs92_crs;
+//				break;
+//			case 5:
+//				dir_stu = dir_kfus93_stu;
+//				dir_crs = dir_kfus93_crs;
+//				break;
+//			case 6:
+//				dir_stu = dir_lsef91_stu;
+//				dir_crs = dir_lsef91_crs;
+//				break;
+//			case 7:
+//				dir_stu = dir_purs93_stu;
+//				dir_crs = dir_purs93_crs;
+//				break;
+//			case 8:
+//				dir_stu = dir_ryes93_stu;
+//				dir_crs = dir_ryes93_crs;
+//				break;
+//			case 9:
+//				dir_stu = dir_staf83_stu;
+//				dir_crs = dir_staf83_crs;
+//				break;
+//			case 10:
+//				dir_stu = dir_tres92_stu;
+//				dir_crs = dir_tres92_crs;
+//				break;
+//			case 11:
+//				dir_stu = dir_utas92_stu;
+//				dir_crs = dir_utas92_crs;
+//				break;
+//			case 12:
+//				dir_stu = dir_utes92_stu;
+//				dir_crs = dir_utes92_crs;
+//				break;
+//			case 13:
+//				dir_stu = dir_yorf83_stu;
+//				dir_crs = dir_yorf83_crs;
+//				break;
+//			case 99:
+//				System.exit(0);
+//			}
+//			long startTime3 = System.nanoTime();
+//			GeneticAlgorithm.run(dir_stu, dir_crs, 10, 1000);
+//			long endTime3   = System.nanoTime();
+//			long totalTime3 = endTime3 - startTime3;
+//			System.out.println((double)totalTime3/1000000000 + " detik");
+//			
+//			
+//			break;
+//		}
+//		
+//		input.close();
 		
 	}
 }

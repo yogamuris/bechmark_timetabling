@@ -2,7 +2,7 @@ package okh;
 
 import java.io.FileWriter;
 import java.util.Arrays;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Scheduler {
 	private int size; 
@@ -12,7 +12,7 @@ public class Scheduler {
     private String solusi = "";
     
     private int jumlahTimeslot;
-    private int[] timeslot;
+//    private int[] timeslot;
 //    private ArrayList<Integer> timeslot;
     private int[] timetable;
     
@@ -70,7 +70,7 @@ public class Scheduler {
 //    		timeslot[i] = ts;
 //    		ts++;
 //    	}
-//    }
+//    } 
     
     private boolean checkTimeslot(int course, int[][] matrix, int[] timeslot, int t) { 
         for (int i = 0; i < size; i++) 
@@ -140,7 +140,6 @@ public class Scheduler {
     		}
     	}
     }
-  
     
     public void exportSchedule(String filename) {
     	try{    

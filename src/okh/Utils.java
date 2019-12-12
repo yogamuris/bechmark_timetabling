@@ -28,6 +28,16 @@ public class Utils {
 		return copySolution;
 	}
 	
+	public static boolean isNotTabrakan(int[][] matrix, int[][] jadwal) { 
+        for(int course = 0; course < matrix.length-1; course++) {
+        	for (int i = course+1; i < matrix.length; i++) 
+                if (matrix[course][i] != 0 && jadwal[course][1] == jadwal[i][1]) 
+                    return false; 
+        }
+    	
+        return true; 
+    }
+	
 	public static double getPenalty(int[][] matrix, int[][] jadwal, int jumlah) {
 		double penalty = 0;
 		
@@ -84,4 +94,63 @@ public class Utils {
 		
 		return temp;
 	}
+	
+	private static int calculateSaturation(int[][] sat, int batas) {
+		int min = 10000;
+		int index = 0;
+		for(int i = 0; i < sat.length; i++) {
+			if(sat[i][1] < min) {
+				index = i;
+				min = sat[i][1];
+			}
+		}
+		return index;
+	}
+	
+	public static int[][] getSaturationSchedule(int size, int[][] largestDegree, int[][] matrix) {
+		int[][] schedule = new int[size][2];
+		int[][] saturation = new int[size][2];
+		int timeslot = 1;
+		
+		for(int i = 0; i<schedule.length; i++) {
+            schedule[i][0] = i+1;
+            schedule[i][1] = -1;
+            saturation[i][0] = largestDegree[i][0];
+            saturation[i][1] = size;
+        }
+		
+		for(int i=0; i<size; i++) {
+            int index = calculateSaturation(saturation, size);
+            for (int j=0; j<=timeslot; j++) {
+                if(isOk(saturation[index][0]-1, j, matrix, schedule, saturation)) {
+                    schedule[saturation[index][0]-1][1] = j;
+                    saturation[index][1] = 100000;
+                    int ind = 0;
+                    for(int k=0; k<matrix.length; k++) {
+                        if(matrix[saturation[index][0]-1][k]!=0) {
+                            ind = k;
+                            for(int l=0; l<saturation.length; l++) {
+                                if(saturation[l][0]==k+1) {
+                                    saturation[l][1] = saturation[l][1]-1;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+                else {
+                    timeslot++;
+                }
+            }
+		}
+		return schedule;
+	}
+		
+	private static boolean isOk(int ex, int jad, int[][]cm, int [][]timeslot, int[][]largest) {
+		for(int i=0; i<cm.length; i++)
+			if(cm[ex][i]!=0 && timeslot[i][1]==jad)
+				return false;
+		return true;
+	}
+	
 }

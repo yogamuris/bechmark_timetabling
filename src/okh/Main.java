@@ -164,7 +164,7 @@ public class Main {
 			break;
 		case 2 :
 			long startTime2 = System.nanoTime();
-			SimulatedAnnealing.run(dir_stu, dir_crs, 100, 10000);
+			SimulatedAnnealing.run(dir_stu, dir_crs, 500, 10000);
 			long endTime2   = System.nanoTime();
 			long totalTime2 = endTime2 - startTime2;
 			System.out.println((double)totalTime2/1000000000 + " detik");

@@ -38,7 +38,7 @@ public class SimulatedAnnealing {
 		
 		int[][] sCurrent = Utils.copySolution(solution);
 		int[][] sBest = Utils.copySolution(sCurrent);
-		double reductionFactor = 0.001;
+		double reductionFactor = 0.5;
 		double tempCurr = temperature;		
 		
 		for(int i = 0; i < iterasi; i++) {

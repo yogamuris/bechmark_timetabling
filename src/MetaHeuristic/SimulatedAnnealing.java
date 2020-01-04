@@ -80,14 +80,14 @@ public class SimulatedAnnealing {
 				}
 			}
 			
-			if((i+1) % 10 == 0)
-				System.out.println("Iterasi ke-"+(i+1)+" "+Utils.getPenalty(confMat, sCurrent, jumlahSiswa));
+//			if((i+1) % 10 == 0)
+//				System.out.println("Iterasi ke-"+(i+1)+" "+Utils.getPenalty(confMat, sCurrent, jumlahSiswa));
 			
 		}
-		System.out.println();
-		System.out.println("Penalty initial solution : " + Utils.getPenalty(confMat, Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat), jumlahSiswa));
-		System.out.println("Penalty Terbaik : "+ bestSolution.getPenalty());
-		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
+//		System.out.println();
+//		System.out.println("Penalty initial solution : " + Utils.getPenalty(confMat, Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat), jumlahSiswa));
+		System.out.println(bestSolution.getPenalty());
+//		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
 //		int[][] bbest = bestSolution.getSolution();
 //		
 //		for(int i = 0; i < bbest.length; i++) {

@@ -156,7 +156,8 @@ public class Main {
 			break;
 		case 1 :
 			long startTime = System.nanoTime();
-			Optimizer.hillClimbing(dir_stu, dir_crs, 100, 1000000);
+			for(int i = 1; i <=10; i++)
+				Optimizer.hillClimbing(dir_stu, dir_crs, 100, 1000);
 			long endTime   = System.nanoTime();
 			long totalTime = endTime - startTime;
 			System.out.println((double)totalTime/1000000000 + " detik");
@@ -164,7 +165,8 @@ public class Main {
 			break;
 		case 2 :
 			long startTime2 = System.nanoTime();
-			SimulatedAnnealing.run(dir_stu, dir_crs, 500, 10000);
+			for(int i = 1; i <=10; i++)
+				SimulatedAnnealing.run(dir_stu, dir_crs, 500, 1000);
 			long endTime2   = System.nanoTime();
 			long totalTime2 = endTime2 - startTime2;
 			System.out.println((double)totalTime2/1000000000 + " detik");

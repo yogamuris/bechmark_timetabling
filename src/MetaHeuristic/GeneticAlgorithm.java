@@ -36,7 +36,7 @@ public class GeneticAlgorithm {
 	private static Solution mutation(Solution solution) {
 		int[][] arrSol = solution.getSolution();
 		
-		int step = 1;
+		int step = (int)0.1 * arrSol.length;
 		
 		for(int i = 0; i < step; i++) {
 			int randomExam = Utils.getRandomNumber(1, arrSol.length-1);
@@ -160,11 +160,11 @@ public class GeneticAlgorithm {
 		System.out.println("Best solution : " + bestSolution.getPenalty());
 		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
 //		
-		int[][] bbest = bestSolution.getSolution();
+//		int[][] bbest = bestSolution.getSolution();
 //		
-		for(int i = 0; i < bbest.length; i++) {
-			System.out.println(bbest[i][0] + " " + bbest[i][1]);
-		}
+//		for(int i = 0; i < bbest.length; i++) {
+//			System.out.println(bbest[i][0] + " " + bbest[i][1]);
+//		}
 		
 	}
 	

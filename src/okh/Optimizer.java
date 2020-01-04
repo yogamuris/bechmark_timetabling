@@ -82,7 +82,7 @@ public class Optimizer {
 		}
 		
 		double penalty = Utils.getPenalty(conflict_matrix, jadwal, jumlahStudent);
-		System.out.println(penalty);	
+//		System.out.println(penalty);	
 		
 		Solution bestSolution = new Solution(jadwal);
 		int max_timeslot = bestSolution.getJumlahTimeslot();
@@ -104,20 +104,20 @@ public class Optimizer {
 					jadwalTemp[randomCourseIndex][1] = jadwal[randomCourseIndex][1];
 				}
 			}
-			if((i+1) % 10 == 0)
-				System.out.println("Iterasi "+(i+1)+" - Penalty : "+penalty);
+//			if((i+1) % 10 == 0)
+//				System.out.println(penalty);
 		}
 		
 		setJadwal(jadwal);
-		System.out.println();
+//		System.out.println();
 		
-		int[][] thebest = bestSolution.getSolution();
-		for(int i = 0; i < thebest.length; i++) {
-			System.out.println(thebest[i][0] + " " + thebest[i][1]);
-		}
+//		int[][] thebest = bestSolution.getSolution();
+//		for(int i = 0; i < thebest.length; i++) {
+//			System.out.println(thebest[i][0] + " " + thebest[i][1]);
+//		}
 		
-		System.out.println("Best Penalty : " + bestSolution.getPenalty());
-		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
+		System.out.println(bestSolution.getPenalty());
+//		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
 	}
 	
 	public static void simulatedAnnealing() {

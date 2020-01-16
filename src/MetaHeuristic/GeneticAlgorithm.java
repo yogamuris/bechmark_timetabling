@@ -12,7 +12,6 @@ public class GeneticAlgorithm {
 		int[][] sol1 = s1.getSolution();
 		int[][] sol2 = s2.getSolution();
 		
-//		int n = sol1.length/2;
 		int n = 1;
 		
 		int[][] temp1 = Utils.copySolution(sol1);
@@ -56,16 +55,12 @@ public class GeneticAlgorithm {
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		
 		for(int i = 0; i < populationSize; i++) {
-//			int[][] index = cm.getRandomIndex(cs.getSize());
-//			int[][] matrix = cm.getRandomMatrix(index);	
 			int[][] matrix = cm.getLargestDegree();
 			int[][] confMat = cm.getConflictMatrix();
 			
 			Scheduler scheduler = new Scheduler(cs.getSize());
 			scheduler.timesloting(matrix, 100);
-//			scheduler.printSchedule(index);
 			scheduler.printSchedule(cm.getDegree());
-//			int[][] solution = scheduler.getSchedule();
 			int[][] solution = Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat);
 			
 			Solution s = new Solution(solution);
@@ -74,7 +69,6 @@ public class GeneticAlgorithm {
 			double penalty = Utils.getPenalty(confMat, solution, jumlahStudent);
 			s.setPenalty(penalty);
 		}
-		
 		
 		return population;
 	}
@@ -159,13 +153,6 @@ public class GeneticAlgorithm {
 		System.out.println();
 		System.out.println("Best solution : " + bestSolution.getPenalty());
 		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
-//		
-//		int[][] bbest = bestSolution.getSolution();
-//		
-//		for(int i = 0; i < bbest.length; i++) {
-//			System.out.println(bbest[i][0] + " " + bbest[i][1]);
-//		}
-		
 	}
 	
 }

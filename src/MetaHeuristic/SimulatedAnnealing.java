@@ -7,9 +7,6 @@ import okh.Utils;
 import okh.Solution;
 
 public class SimulatedAnnealing {
-	/**
-	 * Pseudocode dari http://www.cleveralgorithms.com/nature-inspired/physical/simulated_annealing.html
-	 */
 	
 	private static Solution solusiTerbaik;
 	
@@ -24,14 +21,9 @@ public class SimulatedAnnealing {
 	public static void run(String dir_stu, String dir_crs, double temperature, int iterasi) {
 		CourseSet cs = new CourseSet(dir_crs);
 		ConflictMatrix cm = new ConflictMatrix(dir_stu, cs.getSize());
-		
-//		int [][] matrix = cm.getLargestDegree();
 		int [][] confMat = cm.getConflictMatrix();
 		int jumlahSiswa = cm.getJumlahStudent();
-//		Scheduler scheduler = new Scheduler(cs.getSize());
-//		scheduler.timesloting(matrix, 100);
-//		scheduler.printSchedule(cm.getDegree());
-//		int[][] solution3 = scheduler.getSchedule();
+		
 		int[][] solution = Scheduler.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat);
 		
 		Solution bestSolution = new Solution(solution);
@@ -80,20 +72,10 @@ public class SimulatedAnnealing {
 				}
 			}
 			
-//			if((i+1) % 10 == 0)
-//				System.out.println("Iterasi ke-"+(i+1)+" "+Utils.getPenalty(confMat, sCurrent, jumlahSiswa));
-			
 		}
-//		System.out.println();
-//		System.out.println("Penalty initial solution : " + Utils.getPenalty(confMat, Utils.getSaturationSchedule(cs.getSize(), cm.getDegree(), confMat), jumlahSiswa));
-		System.out.println(bestSolution.getPenalty());
-//		System.out.println("Jumlah timeslot : " + bestSolution.getJumlahTimeslot());
-//		int[][] bbest = bestSolution.getSolution();
-//		
-//		for(int i = 0; i < bbest.length; i++) {
-//			System.out.println(bbest[i][0] + " " + bbest[i][1]);
-//		}
 		
+		System.out.println(bestSolution.getPenalty());
+
 		setSolution(bestSolution);
 	}
 }

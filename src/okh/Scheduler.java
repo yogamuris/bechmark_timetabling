@@ -2,7 +2,6 @@ package okh;
 
 import java.io.FileWriter;
 import java.util.Arrays;
-//import java.util.ArrayList;
 
 public class Scheduler {
 	private int size; 

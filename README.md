@@ -1,4 +1,4 @@
-# OKH
+# Benchmark Timetabling Optimization
 Combinatiorial and heuristic optimization of Benchmark Data Sets in Timetabling.
 Optimization using hill climbing, simulated annealing, and genetic algorithm.
 
